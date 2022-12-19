@@ -1,0 +1,375 @@
+\documentclass[10pt]{article}
+% \usepackage{geometry}
+% \geometry{margin=0.2in}
+\usepackage[utf8]{inputenc}
+
+\nonstopmode
+% \usepackage{minted}[cache=false]
+\usepackage{graphicx} % Required for including pictures
+\usepackage[figurename=Figure]{caption}
+% \usepackage{float}    % For tables and other floats
+\usepackage{amsmath}  % For math
+\usepackage{amssymb}  % For more math
+\usepackage{fullpage} % Set margins and place page numbers at bottom center
+% \usepackage{paralist} % paragraph spacing
+% \usepackage{subfig}   % For subfigures
+%\usepackage{physics}  % for simplified dv, and 
+% \usepackage{enumitem} % useful for itemization
+% \usepackage{siunitx}  % standardization of si units
+\usepackage{hyperref}
+% \usepackage{mmacells}
+% \usepackage{listings}
+% \usepackage{svg}
+% \usepackage{xcolor, soul}
+% \usepackage{bm}
+\usepackage{braket}
+% \usepackage{cancel}
+% \usepackage{setspace}
+% \usepackage{listings}
+% \usepackage{listings}
+% \usepackage[autoload=true]{jlcode}
+% \usepackage{pygmentize}
+
+% \definecolor{cambridgeblue}{rgb}{0.64, 0.76, 0.68}
+
+% \sethlcolor{cambridgeblue}
+
+\usepackage[margin=1.8cm]{geometry}
+\newcommand{\C}{\mathbb C}
+\newcommand{\D}{\bm D}
+\newcommand{\R}{\mathbb R}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\N}{\mathbb N}
+\newcommand{\PP}{\mathbb P}
+\newcommand{\A}{\mathbb A}
+\newcommand{\F}{\mathbb F}
+\newcommand{\1}{\mathbf 1}
+\newcommand{\ip}[1]{\left< #1 \right>}
+\newcommand{\abs}[1]{\left| #1 \right|}
+\newcommand{\norm}[1]{\left\| #1 \right\|}
+
+\def\Tr{{\rm Tr}}
+\def\tr{{\rm tr}}
+\def\Var{{\rm Var}}
+\def\calA{{\mathcal A}}
+\def\calB{{\mathcal B}}
+\def\calD{{\mathcal D}}
+\def\calE{{\mathcal E}}
+\def\calG{{\mathcal G}}
+\def\from{{:}}
+\def\lspan{{\rm span}}
+\def\lrank{{\rm rank}}
+\def\bd{{\rm bd}}
+\def\acc{{\rm acc}}
+\def\cl{{\rm cl}}
+\def\sint{{\rm int}}
+\def\ext{{\rm ext}}
+\def\lnullity{{\rm nullity}}
+% \DeclareSIUnit\clight{\text{\ensuremath{c}}}
+% \DeclareSIUnit\fm{\femto\m}
+% \DeclareSIUnit\hplanck{\text{\ensuremath{h}}}
+
+
+% \lstdefinelanguage{julia}%
+%   {morekeywords={abstract,break,case,catch,const,continue,do,else,elseif,%
+%       end,export,false,for,function,immutable,import,importall,if,in,%
+%       macro,module,otherwise,quote,return,switch,true,try,type,typealias,%
+%       using,while},%
+%    sensitive=true,%
+% %    alsoother={$},%
+%    morecomment=[l]\#,%
+%    morecomment=[n]{\#=}{=\#},%
+%    morestring=[s]{"}{"},%
+%    morestring=[m]{'}{'},%
+% }[keywords,comments,strings]%
+
+% \lstset{%
+%     language         = Julia,
+%     basicstyle       = \ttfamily,
+%     keywordstyle     = \bfseries\color{blue},
+%     stringstyle      = \color{magenta},
+%     commentstyle     = \color{ForestGreen},
+%     showstringspaces = false,
+% }
+
+% $
+\begin{document}
+\begin{center}
+	\hrule
+	\vspace{.4cm}
+	{\textbf { \large CAS PY 452 --- Quantum Physics II}}
+\end{center}
+ Emmy Blumenthal \hspace{\fill} \hspace{\fill}  \textbf{} Discussion Notes\  \\
+\textbf{Date:}\  Dec 7, 2022   \hspace{\fill} \textbf{Email:}\ emmyb320@bu.edu 
+\vspace{.4cm}
+\hrule
+
+\section*{Exciting a particle in a $\delta$-potential}
+
+\paragraph{Problem:}
+
+Consider a particle in a bound 1D $\delta$-potential with Hamiltonian:
+\begin{align}
+	\hat H_0 = \frac{\hat p^2}{2m} - g \delta(x),
+\end{align}
+where $g> 0$.
+Compute the energy absorption rate of the particle if it is then perturbed by a standing plane wave with amplitude $\mathcal{E}(t)$
+\begin{align}
+	\hat H' = q \mathcal{E}(t) \sin(\xi \hat x )
+\end{align}
+Assume that $q \mathcal{E}(t) \ll m g^2/\hbar^2 $ so that we may apply perturbation theory.
+\footnote{Here, $g$ has units of [energy]$\times$[length], $\mathcal{E}(t)$ has units of [energy]$\times$/[charge], and $q$ has units of [charge].}
+
+\paragraph{Reminder:}
+
+First, recall that there is only one bound state for the $\delta$-potential:
+\begin{align}
+	\psi^\delta(x) = \sqrt{\kappa}e^{-\kappa|x|}, \qquad \kappa = \frac{mg}{\hbar^2},
+\end{align}
+which has energy,
+\begin{align}
+	E^\delta =- \frac{\hbar^2 \kappa^2}{2 m} = - \frac{m g^2}{2 \hbar^2}.
+\end{align}
+Next, recall that the `particle in a box' with Hamiltonian $\hat H^\square = \frac{\hat p^2}{2m} + V(x)$, where $V(x) = \begin{cases}
+	0 & |x| \leq L/2\\
+	\infty & |x| > L/2
+\end{cases}$,
+has wave-functions,
+\begin{align}
+	\psi_n^\square(x) = \sqrt{\frac{2}{L}} 
+	\begin{cases}
+		\sin(k_n x) & \text{even $n$},\\
+		\cos(k_n x) & \text{odd $n$},
+	\end{cases}
+	\qquad 
+	k_n = \frac{n\pi}{L},
+\end{align}
+and energies,
+\begin{align}
+	E_n^\square = \frac{\hbar^2  k_n^2}{2m} =\frac{n^2 \pi^2\hbar^2}{2m L^2}.
+\end{align}
+
+
+\paragraph{Solution:}
+
+To evaluate transition rates from the bound state to excited states, we need to compute matrix elements of $\hat H'$ between the initial state $\psi^\delta$ and the final state as well as the density of excited states.
+Our final states are going to be plane waves, but we don't have a good way to calculate density of states for free-particle plane waves.
+We will make an approximation by considering the $\delta$-potential to be centered in the middle of a large particle-in-a-box potential.
+To make this work, our bound-state wave-function needs to satisfy boundary conditions $\psi(\pm L/2) = 0$; if we assume $L \gg 1/\kappa$, then $\psi^\delta$ approximately fits these boundary conditions, so we will still take $\psi^\delta$ to be the bound ground state.
+Using these approximations, we will consider transitions between $\psi^\delta$ to $\psi^\square_n$.
+
+First, we compute the matrix elements,
+\begin{align}
+	\ip{\psi_n^\square | \hat H' | \psi^\delta}
+	=
+	q \mathcal{E}(t)
+	\int_{-\infty}^\infty
+	\psi_n^\square(x)
+	\cos(\xi x)
+	\psi^\delta(x)
+	dx
+	=
+	q \mathcal{E}(t)
+	\sqrt{\kappa}
+	% \sqrt{\frac{2\kappa}{L}}
+	\int_{-\infty}^\infty
+	\psi_n^\square(x)
+	\sin(\xi x )
+	e^{-\kappa|x|}
+	dx.
+\end{align}
+Notice that if $n$ is odd, then $\psi_n^\square(x)$ is even and the integrand is odd, meaning that $\ip{\psi_n^\square | \hat H' | \psi^\delta} = 0$.
+Therefore, only the matrix elements where $n$ is even remain:
+\footnote{
+	Technically, the limits of integration should be $\pm L/2$, but we will end up taking a limit $L \to \infty$ at the end, and choosing these limits here will not effect these calculations as other factors of $L$ will cancel out.
+}
+\begin{align}
+	\ip{\psi_n^\square | \hat H' | \psi^\delta}
+	&=
+	q \mathcal{E}(t)
+	\sqrt{\frac{2\kappa}{L}}
+	\int_{-\infty}^\infty
+	\sin(k_n x)
+	\sin(\xi x )
+	e^{-\kappa|x|}
+	dx
+	=
+	q \mathcal{E}(t)
+	\sqrt{\frac{2\kappa}{L}}
+	\left(\frac{i}{2}\right)^2
+	\int_{-\infty}^\infty
+	\left(
+		e^{- i k_n x}
+		-
+		e^{ i k_n x}
+	\right)
+	\left(
+		e^{- i \xi x}
+		-
+		e^{ i \xi x}
+	\right)
+	e^{-\kappa|x|}
+	dx\nonumber
+	\\
+	&=
+	-
+	q \mathcal{E}(t)
+	\frac{1}{2}
+	\sqrt{\frac{\kappa}{2L}}
+	\int_{-\infty}^\infty
+	\left(
+		e^{- i (k_n + \xi) x - \kappa |x|}
+		-
+		e^{- i (k_n - \xi) x - \kappa |x|}
+		-
+		e^{- i (-k_n + \xi) x - \kappa |x|}
+		+
+		e^{- i (-k_n - \xi) x - \kappa |x|}
+	\right)
+	dx.
+\end{align}
+There are four integrals here, but we can find them by computing just one then substituting:
+\begin{align}
+	\int_{-\infty}^\infty
+	e^{-i \alpha x - \kappa |x|} dx
+	&=\nonumber
+	\int_{-\infty}^0
+	e^{- i\alpha x + \kappa x} dx
+	+
+	\int_{0}^\infty
+	e^{-i \alpha x - \kappa x} dx
+	=
+	\int_{0}^\infty
+	e^{ -(\kappa - i\alpha ) x} dx
+	+
+	\int_{0}^\infty
+	e^{- (\kappa +i \alpha) x} dx
+	\\
+	&=
+	\frac{1}{\kappa - i\alpha}
+	+
+	\frac{1}{\kappa + i\alpha}
+	=
+	\frac{2\kappa}{\alpha^2+\kappa^2}.
+\end{align}
+Now, we substitute $\alpha = k_n +\xi, k_n - \xi, -k_n + \xi, -k_n - \xi$ to find,
+\begin{align}
+	\ip{\psi_n^\square | \hat H' | \psi^\delta}
+	&=
+	-
+	q \mathcal{E}(t)
+	\sqrt{\frac{\kappa}{2L}}
+	\left(
+		\frac{\kappa}{(k_n + \xi)^2 + \kappa^2}
+		-
+		\frac{\kappa}{(k_n - \xi)^2 + \kappa^2}
+		-
+		\frac{\kappa}{(-k_n + \xi)^2 + \kappa^2}
+		+
+		\frac{\kappa}{(-k_n - \xi)^2 + \kappa^2}
+	\right)
+	\nonumber\\
+	&=
+	q \mathcal{E}(t)
+	\sqrt{\frac{2}{L\kappa}}
+	\left(
+		\frac{\kappa^2}{(k_n - \xi)^2 + \kappa^2}
+		-
+		\frac{\kappa^2}{(k_n + \xi)^2 + \kappa^2}
+	\right),
+	\qquad \left(
+		n = 2,4,6,8,\dots
+	\right).
+\end{align}
+Note that we can use $k_n = \sqrt{2m E_n^\square / \hbar^2}$ to write these matrix elements in terms of the energy of $\psi_n^\square$.
+The next ingredient we need to use the Fermi golden rule is the density of states to which the particle is going to transition.
+For this, we will be working with the continuum limit where $L \to \infty$, so the spacing between $k_n = n\pi/L$ becomes very small and $k_n$ becomes a continuous variable.
+The density of states for a particle in a box is,
+\begin{align}
+	\rho^\square(E)
+	=
+	\left(\frac{d E^\square}{dn}\right)^{-1}
+	=
+	\left(\frac{d E^\square}{dk}
+	\frac{dk}{dn}\right)^{-1}
+	=
+	\left(
+		\frac{\hbar^2 k_n}{m}
+		\frac{\pi}{L}
+	\right)^{-1}
+	=
+	\frac{m L}{\hbar^2 k_n \pi}
+	=
+	\left(
+		\frac{\pi\hbar^2}{mL}\frac{\sqrt{2m E}}{\hbar}
+	\right)^{-1}
+	=
+	\frac{L}{\pi \hbar}\sqrt{\frac{m}{2 E}}
+	,
+\end{align}
+where we have used $E_n^\square = \frac{\hbar^2 k_n^2}{2m} \implies k_n = \sqrt{2m E_n^\square/\hbar^2}$.
+However, for our purposes, when $L \to \infty$ (i.e., we take the continuum limit), only half the states in the particle in a box within some small interval $(E, E+\delta E)$ are actually accessible because $\hat H'$ has zero matrix elements with all odd $n$, so,
+\begin{align}
+	\rho(E)
+	=
+	\frac{1}{2}\rho^\square (E)
+	=
+	\frac{L}{2\pi\hbar}
+	\sqrt{\frac{m}{2E}}
+	=
+	\frac{m L}{2\hbar^2 k \pi}
+	.
+\end{align}
+With all this in place, we can use the Fermi golden rule to evaluate transition rates:
+\begin{align}
+	\Gamma_{\delta \to E}
+	&=\nonumber
+	\frac{2\pi}{\hbar}
+	\left|
+		\bra{\psi_E^\square} \hat H' \ket{\psi^\delta}
+	\right|^2
+	\rho(E)
+	=
+	\frac{2\pi}{\hbar}
+	\left[
+		q \mathcal{E}(t)
+		\sqrt{\frac{2}{L\kappa}}
+		\left(
+			\frac{\kappa^2}{(k - \xi)^2 + \kappa^2}
+			-
+			\frac{\kappa^2}{(k + \xi)^2 + \kappa^2}
+		\right)
+	\right]^2
+	\frac{m L}{2 \hbar^2 k \pi}
+	\\
+	&=
+	q^2 \mathcal{E}(t)^2
+	\frac{2m}{\hbar^3 \kappa k }
+		\left(
+			\frac{\kappa^2}{(k - \xi)^2 + \kappa^2}
+			-
+			\frac{\kappa^2}{(k + \xi)^2 + \kappa^2}
+		\right)^2
+		\\
+	&=
+	\frac{q^2 \mathcal{E}(t)^2}{\hbar^2 \kappa }
+	\sqrt{\frac{2m}{E}}
+		\left(
+			\frac{\kappa^2}{(\sqrt{2m E/\hbar^2} - \xi)^2 + \kappa^2}
+			-
+			\frac{\kappa^2}{(\sqrt{2m E/\hbar^2} + \xi)^2 + \kappa^2}
+		\right)^2.
+\end{align}
+Note that transitions to only certain energies will be allowed, consistent with how energy enters and leaves the system due to the time-dependent variation of the strength of the perturbation which is controlled by $\mathcal{E}(t)$.
+
+
+
+
+\end{document}
+
+
+
+
+
+

@@ -1,0 +1,290 @@
+\documentclass[10pt]{article}
+% \usepackage{geometry}
+% \geometry{margin=0.2in}
+\usepackage[utf8]{inputenc}
+
+\nonstopmode
+% \usepackage{minted}[cache=false]
+\usepackage{graphicx} % Required for including pictures
+\usepackage[figurename=Figure]{caption}
+\usepackage{float}    % For tables and other floats
+\usepackage{amsmath}  % For math
+\usepackage{amssymb}  % For more math
+\usepackage{fullpage} % Set margins and place page numbers at bottom center
+\usepackage{paralist} % paragraph spacing
+\usepackage{subfig}   % For subfigures
+%\usepackage{physics}  % for simplified dv, and 
+\usepackage{enumitem} % useful for itemization
+\usepackage{siunitx}  % standardization of si units
+\usepackage{hyperref}
+% \usepackage{mmacells}
+\usepackage{listings}
+\usepackage{svg}
+\usepackage{xcolor, soul}
+\usepackage{bm}
+% \usepackage{minted}
+\usepackage{braket}
+
+% \usepackage{setspace}
+% \usepackage{listings}
+% \usepackage{listings}
+% \usepackage[autoload=true]{jlcode}
+% \usepackage{pygmentize}
+
+\definecolor{cambridgeblue}{rgb}{0.64, 0.76, 0.68}
+
+\sethlcolor{cambridgeblue}
+
+\usepackage[margin=1.8cm]{geometry}
+\newcommand{\C}{\mathbb C}
+\newcommand{\D}{\bm D}
+\newcommand{\R}{\mathbb R}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\N}{\mathbb N}
+\newcommand{\PP}{\mathbb P}
+\newcommand{\A}{\mathbb A}
+\newcommand{\F}{\mathbb F}
+\newcommand{\1}{\mathbf 1}
+\newcommand{\ip}[1]{\left< #1 \right>}
+\newcommand{\abs}[1]{\left| #1 \right|}
+\newcommand{\norm}[1]{\left\| #1 \right\|}
+
+\def\Tr{{\rm Tr}}
+\def\tr{{\rm tr}}
+\def\Var{{\rm Var}}
+\def\calA{{\mathcal A}}
+\def\calB{{\mathcal B}}
+\def\calD{{\mathcal D}}
+\def\calE{{\mathcal E}}
+\def\calG{{\mathcal G}}
+\def\from{{:}}
+\def\lspan{{\rm span}}
+\def\lrank{{\rm rank}}
+\def\bd{{\rm bd}}
+\def\acc{{\rm acc}}
+\def\cl{{\rm cl}}
+\def\sint{{\rm int}}
+\def\ext{{\rm ext}}
+\def\lnullity{{\rm nullity}}
+\DeclareSIUnit\clight{\text{\ensuremath{c}}}
+\DeclareSIUnit\fm{\femto\m}
+\DeclareSIUnit\hplanck{\text{\ensuremath{h}}}
+
+
+% \lstdefinelanguage{julia}%
+%   {morekeywords={abstract,break,case,catch,const,continue,do,else,elseif,%
+%       end,export,false,for,function,immutable,import,importall,if,in,%
+%       macro,module,otherwise,quote,return,switch,true,try,type,typealias,%
+%       using,while},%
+%    sensitive=true,%
+% %    alsoother={$},%
+%    morecomment=[l]\#,%
+%    morecomment=[n]{\#=}{=\#},%
+%    morestring=[s]{"}{"},%
+%    morestring=[m]{'}{'},%
+% }[keywords,comments,strings]%
+
+% \lstset{%
+%     language         = Julia,
+%     basicstyle       = \ttfamily,
+%     keywordstyle     = \bfseries\color{blue},
+%     stringstyle      = \color{magenta},
+%     commentstyle     = \color{ForestGreen},
+%     showstringspaces = false,
+% }
+
+% $
+\begin{document}
+\begin{center}
+	\hrule
+	\vspace{.4cm}
+	{\textbf { \large CAS PY 452 --- Quantum Physics II}}
+\end{center}
+Emmy Blumenthal \hspace{\fill} \hspace{\fill}  \textbf{} Discussion Notes\  \\
+\textbf{Date:}\  Sep 28, 2022   \hspace{\fill} \textbf{Email:}\ emmyb320@bu.edu \ 
+\vspace{.4cm}
+\hrule
+
+
+\section*{Equivalence of first and second quantization for two particles and two orbitals}
+\paragraph{First quantization:}
+
+Consider the system where there are two orbitals $a,b$ and two particles.
+The single particle basis states are $\psi_a(x), \psi_b(x)$, and the single-particle operator $\hat o(x)$ operates as,
+\begin{align}
+	\hat o(x) \psi_a(x)
+	=
+	o_{aa}\psi_a(x)
+	+
+	o_{ba}\psi_b(x),
+	\qquad
+	\hat o(x) \psi_b(x)
+	=
+	o_{ab}\psi_a(x)
+	+
+	o_{bb}\psi_b(x).
+\end{align}
+The values $o_{aa},o_{ba}, o_{ab},o_{bb}$ are the matrix elements of the {\em single-particle} operator $\hat o$, and we take them as a given.
+The multi-particle basis states are,
+\begin{align}
+	\psi_{\alpha}(x_1,x_2)
+	=
+	\psi_a(x_1)
+	\psi_a(x_2),
+	\quad
+	\psi_{\beta}(x_1,x_2)
+	=
+	\frac{1}{\sqrt{2}}
+	\left(
+	\psi_a(x_1)
+	\psi_b(x_2)
+	+
+	\psi_a(x_2)
+	\psi_b(x_1)
+	\right)
+	,
+	\quad 
+	\psi_\gamma(x_1,x_2)
+	=
+	\psi_b(x_1)
+	\psi_b(x_2).
+	\label{sqbasisstates}
+\end{align}
+In the first quantization, our goal is to calculate the matrix elements of the operator $\hat O = \hat o(x_1) + \hat o(x_2)$ in terms of the basis states $\psi_\alpha, \psi_\beta, \psi_\gamma$.
+The notation $\hat o(x_1)$ means that this operator only acts on coordinate $x_1$ and leaves wave-functions in terms of $x_2$ alone.
+In the prompt for problem 1, we want to find the matrix elements only corresponding to one basis state, so that's what we'll do here with the basis state $\psi_\alpha(x_1,x_2)$.
+To find the matrix elements, we act on $\psi_\alpha(x_1,x_2)$ with the operator $\hat O$ and then express the resulting wave-function in terms of the basis states $\psi_\alpha, \psi_\beta, \psi_\gamma$:
+\begin{align}
+	\hat O [\psi_\alpha(x_1,x_2)]
+	&=\nonumber
+	\hat o(x_1) [\psi_\alpha(x_1,x_2)]
+	+
+	\hat o(x_2) [\psi_\alpha(x_1,x_2)]
+	=
+	\hat o(x_1) [\psi_a(x_1)\psi_a(x_2)]
+	+
+	\hat o(x_2) [\psi_a(x_1)\psi_a(x_2)]
+	\\
+	&=
+	\psi_a(x_2) \hat o(x_1) [\psi_a(x_1)]
+	+
+	\psi_a(x_1)\hat o(x_2) [\psi_a(x_2)]
+	\nonumber
+	\\
+	&=\nonumber
+	\psi_a(x_2) (o_{aa}\psi_a(x_1)+o_{ba}\psi_b(x_1))
+	+
+	\psi_a(x_1)  (o_{aa}\psi_a(x_2)+o_{ba}\psi_b(x_2))
+	\\
+	&=\nonumber
+	2o_{aa}\psi_a(x_1)\psi_a(x_2)+o_{ba}(\psi_a(x_2)\psi_b(x_1)
+	+\psi_a(x_1)\psi_b(x_2))
+	\\
+	&=
+	2o_{aa}\psi_\alpha(x_1,x_2)
+	+
+	\sqrt{2}
+	o_{ba}\psi_\beta(x_1,x_2)
+	+
+	0\psi_\gamma(x_1,x_2).
+\end{align}
+In the last line, we factored our expression in terms of the basis states $\psi_\alpha, \psi_\beta, \psi_\gamma$
+The matrix elements in this multi-particle basis are then $2o_{aa}$, $\sqrt{2}o_{ba}$, $0$.
+We could write this as a column in a matrix like so:
+\begin{align}
+	\left(
+		\begin{array}{ccc}
+			2 o_{aa} & \cdot & \cdot\\
+			\sqrt{2} o_{ba} & \cdot & \cdot\\
+			0 & \cdot & \cdot\\
+		\end{array}
+	\right).
+\end{align}
+Here, the dots are the matrix elements that we do not know yet; we would find these matrix elements by computing $\hat O \psi_\beta$ and $\hat O \psi_\gamma$ and then factoring the results in terms of $\psi_\alpha, \psi_\beta, \psi_\gamma$.
+In the problem prompt, you are only asked to find one column of this matrix: the column corresponding to acting with $\hat O$ on the multi-particle basis state with two particles in orbital $a$, one particle in orbital $b$, and no particles in orbital $c$.
+One of the steps in this problem is finding expressions for the multi-particle basis states (similar to what happened in line \ref{sqbasisstates}).
+Note that we are working with bosons here and in problem 1 of the homework.
+
+\paragraph{Second quantization:}
+
+Now, we work in the second-quantized notation, so our basis states are $\ket{2,0}$, $\ket{1,1}$, and $\ket{0,2}$.
+The operator $\hat O$ is expressed as,
+\begin{align}
+	\hat O =
+	\hat a_a^\dagger
+	o_{aa}
+	\hat a_a
+	+
+	\hat a_b^\dagger
+	o_{ba}
+	\hat a_a
+	+
+	\hat a_a^\dagger
+	o_{ab}
+	\hat a_b
+	+
+	\hat a_b^\dagger
+	o_{bb}
+	\hat a_b,
+\end{align}
+in the second quantization.
+To compute matrix elements, we use the rules $\hat a \ket{n} = \sqrt{n} \ket{n-1}$, $\hat a^\dagger \ket{n} = \sqrt{n+1} \ket{n+1}$, and $\hat a\ket{0} = 0$.
+Similarly to before, we act on $\ket{2,0}$ with $\hat O$ and then factor in terms of basis states,
+\begin{align}
+	\hat O \ket{2,0}
+	&=\nonumber
+	\hat a_a^\dagger
+	o_{aa}
+	\hat a_a
+	\ket{2,0}
+	+
+	\hat a_b^\dagger
+	o_{ba}
+	\hat a_a
+	\ket{2,0}
+	+
+	\hat a_a^\dagger
+	o_{ab}
+	\hat a_b
+	\ket{2,0}
+	+
+	\hat a_b^\dagger
+	o_{bb}
+	\hat a_b
+	\ket{2,0}
+	=
+	\sqrt{2}
+	o_{aa}
+	\hat a_a^\dagger
+	\ket{1,0}
+	+
+	\sqrt{2}
+	o_{ba}
+	\hat a_b^\dagger
+	\ket{1,0}
+	+
+	0
+	+
+	0
+	\\
+	&=
+	\sqrt{2} \times \sqrt{2} o_{aa} \ket{2,0}
+	+
+	\sqrt{2}
+	o_{ba}
+	\ket{1,1}
+	+
+	0 \ket{0,2}.
+\end{align}
+Here we see that we are able to re-produce the same matrix elements from the first quantization where the basis states $\ket{2,0}, \ket{1,1},\ket{0,2}$ correspond to $\psi_\alpha,\psi_\beta,\psi_\gamma$.
+In problem 1 of the homework, you will follow this same procedure to show the equivalence of the first and second quantized methods but with three orbitals and three particles.
+
+
+
+\end{document}
+
+
+
+
+

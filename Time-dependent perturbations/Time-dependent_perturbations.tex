@@ -1,0 +1,673 @@
+\documentclass[10pt]{article}
+% \usepackage{geometry}
+% \geometry{margin=0.2in}
+\usepackage[utf8]{inputenc}
+
+\nonstopmode
+% \usepackage{minted}[cache=false]
+\usepackage{graphicx} % Required for including pictures
+\usepackage[figurename=Figure]{caption}
+% \usepackage{float}    % For tables and other floats
+\usepackage{amsmath}  % For math
+\usepackage{amssymb}  % For more math
+\usepackage{fullpage} % Set margins and place page numbers at bottom center
+% \usepackage{paralist} % paragraph spacing
+% \usepackage{subfig}   % For subfigures
+%\usepackage{physics}  % for simplified dv, and 
+% \usepackage{enumitem} % useful for itemization
+% \usepackage{siunitx}  % standardization of si units
+\usepackage{hyperref}
+% \usepackage{mmacells}
+% \usepackage{listings}
+% \usepackage{svg}
+% \usepackage{xcolor, soul}
+\usepackage{bm}
+\usepackage{braket}
+% \usepackage{cancel}
+% \usepackage{setspace}
+% \usepackage{listings}
+% \usepackage{listings}
+% \usepackage[autoload=true]{jlcode}
+% \usepackage{pygmentize}
+
+% \definecolor{cambridgeblue}{rgb}{0.64, 0.76, 0.68}
+
+% \sethlcolor{cambridgeblue}
+
+\usepackage[margin=1.8cm]{geometry}
+\newcommand{\C}{\mathbb C}
+\newcommand{\D}{\bm D}
+\newcommand{\R}{\mathbb R}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\N}{\mathbb N}
+\newcommand{\PP}{\mathbb P}
+\newcommand{\A}{\mathbb A}
+\newcommand{\F}{\mathbb F}
+\newcommand{\1}{\mathbf 1}
+\newcommand{\ip}[1]{\left< #1 \right>}
+\newcommand{\abs}[1]{\left| #1 \right|}
+\newcommand{\norm}[1]{\left\| #1 \right\|}
+
+\def\Tr{{\rm Tr}}
+\def\tr{{\rm tr}}
+\def\Var{{\rm Var}}
+\def\calA{{\mathcal A}}
+\def\calB{{\mathcal B}}
+\def\calD{{\mathcal D}}
+\def\calE{{\mathcal E}}
+\def\calG{{\mathcal G}}
+\def\from{{:}}
+\def\lspan{{\rm span}}
+\def\lrank{{\rm rank}}
+\def\bd{{\rm bd}}
+\def\acc{{\rm acc}}
+\def\cl{{\rm cl}}
+\def\sint{{\rm int}}
+\def\ext{{\rm ext}}
+\def\lnullity{{\rm nullity}}
+% \DeclareSIUnit\clight{\text{\ensuremath{c}}}
+% \DeclareSIUnit\fm{\femto\m}
+% \DeclareSIUnit\hplanck{\text{\ensuremath{h}}}
+
+
+% \lstdefinelanguage{julia}%
+%   {morekeywords={abstract,break,case,catch,const,continue,do,else,elseif,%
+%       end,export,false,for,function,immutable,import,importall,if,in,%
+%       macro,module,otherwise,quote,return,switch,true,try,type,typealias,%
+%       using,while},%
+%    sensitive=true,%
+% %    alsoother={$},%
+%    morecomment=[l]\#,%
+%    morecomment=[n]{\#=}{=\#},%
+%    morestring=[s]{"}{"},%
+%    morestring=[m]{'}{'},%
+% }[keywords,comments,strings]%
+
+% \lstset{%
+%     language         = Julia,
+%     basicstyle       = \ttfamily,
+%     keywordstyle     = \bfseries\color{blue},
+%     stringstyle      = \color{magenta},
+%     commentstyle     = \color{ForestGreen},
+%     showstringspaces = false,
+% }
+
+% $
+\begin{document}
+\begin{center}
+	\hrule
+	\vspace{.4cm}
+	{\textbf { \large CAS PY 452 --- Quantum Physics II}}
+\end{center}
+Emmy Blumenthal \hspace{\fill} \hspace{\fill}  \textbf{} Discussion Notes\  \\
+\textbf{Date:}\  Nov 30, 2022   \hspace{\fill} \textbf{Email:}\ emmyb320@bu.edu 
+\vspace{.4cm}
+\hrule
+
+\section*{Time-dependent perturbation theory for the two-level system}
+
+\paragraph{Problem:}
+
+Consider a two-level system with energy eigenstates $\{\ket{0},\ket{1}\}$ and energy eigenvalues $\{E_0,E_1\}$.
+That is, it's Hamiltonian in the basis $\{\ket{0},\ket{1}\}$ is,
+\begin{align}
+	\hat H
+	=
+	\left(
+		\begin{array}[]{cc}
+			H_{00} & H_{01}\\
+			H_{10} & H_{11}\\
+		\end{array}
+	\right)
+	=
+	\left(
+		\begin{array}[]{cc}
+			E_0 & 0\\
+			0 & E_1\\
+		\end{array}
+	\right).
+\end{align}
+The system is then subject to a time-dependent perturbation $\hat V(t)$ which couples the unperturbed states:
+\begin{align}
+	\hat V(t)
+	=
+	\left(\begin{cases}
+		\frac{1}{2}\alpha \eta e^{\eta t} & t <0\\
+		\frac{1}{2}\alpha \eta e^{-\eta t} & t \geq 0\\
+	\end{cases}
+	\right)
+	\left(
+		\begin{array}[]{cc}
+			0 & 1\\
+			1 & 0\\
+		\end{array}
+	\right)
+	=
+	\frac{\alpha}{2}\eta e^{-\eta|t|}
+	\left(
+		\begin{array}[]{cc}
+			0 & 1\\
+			1 & 0\\
+		\end{array}
+	\right)
+\end{align}
+Assume that $\eta>0$, $\alpha \ll \hbar$ and $\hbar \eta \ll E_0,E_1$ so that we can apply first-order time-dependent perturbation theory.
+Given that the system is in state $\ket{0}$ at $t \to -\infty$, find the probability that the state will be in state $\ket{1}$ at $t \to \infty$ using time-dependent perturbation theory.
+Analyze these results as $\eta \to 0$ and $\eta \to \infty$.
+What type of perturbation does $\hat V(t)$ look like as $\eta \to \infty$?
+% Also consider the case where $\alpha = \beta/\eta$.
+
+\paragraph{Reminder:}
+
+In time-dependent perturbation theory, we attempt to solve $i\hbar \partial_t \ket{\psi(t)} = (\hat H + \hat V(t))\ket{\psi(t)}$.
+We find a systematic method by moving to the interaction representation:
+\begin{align}
+	\ket{\psi(t)}_I 
+	=
+	e^{i \hat H t/\hbar}\ket{\psi(t)},
+	\qquad
+	\hat V_I(t)
+	=
+	e^{i \hat H t/\hbar} \hat V(t)
+	e^{-i \hat H t/\hbar},
+\end{align}
+so the TDSE becomes,
+\begin{align}
+	i \hbar \partial_t \ket{\psi(t)}_I 
+	=
+	\hat V_I(t) \ket{\psi(t)}_I.
+\end{align}
+If we write $\ket{\psi(t)}_I = \sum_n c_n(t) \ket{n}$, where $\ket{n}$ is the $n$th stationary state, then 
+$\bra{m} i \hbar \partial_t \ket{\psi(t)}_I = \bra{m} \hat V_I(t) \ket{\psi(t)}_I$, becomes,
+\begin{align}
+	i \hbar \partial_t c_m(t)
+	=
+	\sum_{n} 
+	V_{mn}(t) e^{i \omega_{mn} t} c_n(t),
+\end{align}
+where $V_{mn}(t) = \braket{m | \hat V(t)|n}$ and $\omega_{mn} = (E_m - E_n)/\hbar$.
+If a system begins in state $\ket{i}$, we can form a perturbative approximation by solving iteratively.
+This approximation gives $c_n(t) = c_n^{(0)} +c_n^{(1)} +c_n^{(2)} +\cdots$, where,
+\begin{align}
+	c_n^{(0)}(t)
+	&=
+	\delta_{ni},
+	\\
+	c_n^{(1)}(t)
+	&=
+	-\frac{i}{\hbar}
+	\int_{t_0}^t dt' e^{i \omega_{ni} t'} V_{ni}(t')
+	\\
+	c_n^{(2)}(t)
+	&=
+	\left(-\frac{i}{\hbar}\right)
+	\sum_{m}
+	\int_{t_0}^t
+	dt'
+	e^{i \omega_{nm}t'}
+	V_{nm} (t')
+	\left(-\frac{i}{\hbar}\right)
+	\int_{t_0}^{t'}
+	dt''
+	e^{i \omega_{mi}t''}
+	V_{mi}(t'').
+\end{align}
+This is called the Dyson series.\footnote{
+	The Dyson series is related to Feynman diagrams. If you're curious about this connection, consider reading these notes (\url{https://web2.ph.utexas.edu/~vadim/Classes/2022f/dyson.pdf}) from a class at UT Austin.
+}
+
+\paragraph{Solution:}
+
+To compute the transition probability, we compute the integral:
+\begin{align}
+	c_{1}^{(1)}(t \to \infty)
+	&=\nonumber
+	-\frac{i}{\hbar}
+	\int_{-\infty}^\infty
+	dt'
+	e^{i \omega_{10} t'}
+	\braket{1 | \hat V(t) | 0}
+	=
+	-\frac{i\alpha\eta}{2\hbar}
+	\int_{-\infty}^\infty
+	dt'
+	e^{i \omega_{10} t'}
+	e^{-\eta |t|}
+	\\
+	&
+	=
+	-
+	\frac{i\alpha\eta}{2\hbar}
+	\left(
+		\int_{-\infty}^0 dt e^{(i \omega_{10} + \eta t)t}
+		+
+		\int_{0}^{\infty} dt e^{(i \omega_{10} - \eta t)t}
+	\right)
+	=
+	-
+	\frac{i\alpha\eta}{2\hbar}
+	\left(
+		\int_{0}^\infty dt e^{-(i \omega_{10} + \eta )t}
+		+
+		\int_{0}^{\infty} dt e^{-(-i \omega_{10} + \eta )t}
+	\right)
+	\nonumber
+	\\
+	&
+	=
+	-
+	\frac{i\alpha\eta}{2\hbar}
+	\left(
+		\frac{1}{\eta + i \omega_{10}}
+		+
+		\frac{1}{\eta - i \omega_{10}}
+	\right)
+	=
+	-
+	\frac{i\alpha}{\hbar}
+	\left(
+		\frac{\eta^2}{\eta^2 + \omega_{10}^2}
+	\right).
+\end{align}
+This means the probability of transition is,
+\begin{align}
+	p_{0 \to 1}
+	=
+	|c_1^{(1)}(t \to \infty)|^2
+	=
+	\frac{\alpha^2}{\hbar^2}
+	\left(
+		\frac{\eta^2}{\eta^2 + \omega_{10}^2}
+	\right)^2.
+\end{align}
+We can see that as $\eta \to 0$, the probability of transition goes to zero: $c_1^{(1)} (t \to \infty)\to 0$.
+When $\eta \to \infty$, $\alpha \eta e^{-\eta|t|}/2 \to \alpha \delta(t)$, so we have a delta-function perturbation at $t=0$.
+The integral $\alpha\int_{-\infty}^\infty \delta(t) e^{i \omega_{10}t} dt = \alpha$ is consistent with $c_1^{(1)} (t \to \infty) = -i\alpha/\hbar$ as $\eta \to \infty$.
+
+% Notice that from the above, we can see that $c_1^{(1)}(0) =
+% -\frac{i\alpha\eta}{2\hbar}
+% \left(
+% 	\frac{1}{\eta+i \omega_{10}}
+% \right)
+% =
+% -
+% \frac{\alpha\eta}{2 \hbar \omega_{10}}
+% +
+% O(\eta^2).
+% $
+
+% From the above result, we can easily see that $c_1^{(1)} ( 0) = $
+
+% Now, let $\alpha= \beta/\eta$, so $c_1^{(1)}(t \to \infty) = -(i\beta/\hbar)(\eta/(\eta^2 + \omega_{10}^2))$, so as $\eta \to 0$, $c_1^{(1)}(t \to \infty) \to 0$.
+% However, looking at our earlier results, we can see that $\lim_{\eta \to 0}c_1^{(1)} (0) = -\frac{i\beta}{2\hbar}\left(
+% 	\frac{1}{0+ i \omega_{10}}
+% \right)
+% \ne 0.
+% $
+% This is an example of the adiabatic theorem.
+
+
+% Now, let $\alpha = \beta/\eta$ and let $\xi = 1/\eta$, so,
+% \begin{align}
+% 	c_1^{(1)}(t \to \infty)
+% 	&=
+% 	-\frac{i\beta}{\hbar}
+% 	\frac{  \xi }{\xi ^2 \omega_{10} ^2+1}
+% 	=
+% 	-\frac{i\beta}{\hbar}
+% 	\xi 
+% 	\frac{1}{1-(-\xi ^2 \omega_{10} ^2)}
+% 	=
+% 	-\frac{i\beta}{\hbar}
+% 	\xi 
+% 	\left[
+% 		1
+% 		+
+% 		(-\xi ^2 \omega_{10} ^2)
+% 		+
+% 		(-\xi ^2 \omega_{10} ^2)^2
+% 		+
+% 		O(-\xi ^2 \omega_{10} ^2)^3
+% 	\right]
+% 	\\
+% 	&=
+% 	-\frac{i\beta}{\hbar}
+% 	\left[
+% 		\xi
+% 		-\xi ^3 \omega_{10} ^2
+% 		+
+% 		\xi ^5 \omega_{10} ^4
+% 		+
+% 		O(\xi ^7 \omega_{10} ^6)
+% 	\right]
+% 	=
+% 	-\frac{i\beta}{\hbar}\xi +
+% 	O(\xi^3)
+% 	=
+% 	-\frac{i\beta}{\eta\hbar} +
+% 	O(\eta^{-3})
+% \end{align}
+
+\section*{Time-dependent perturbation theory for the quantum harmonic oscillator}
+
+
+\paragraph{Problem:}
+
+Consider the quantum harmonic oscillator:
+\begin{align}
+	\hat H_0
+	=
+	\frac{1}{2m}\hat p^2
+	+
+	\frac{1}{2}m \omega^2 \hat x^2,
+\end{align}
+which is being perturbed by a linear electric field $\mathcal{E}(t)$ that is turned on and then turned back off:
+\begin{align}
+	\hat V(t)
+	=
+	q \mathcal{E}(t) \hat x,
+\end{align}
+where,
+\begin{align}
+	\mathcal{E}(t)
+	=
+	\frac{\mathcal{E}_0}{\tau\sqrt{\pi}}
+	e^{-(t/\tau)^2},
+\end{align}
+where $q\mathcal{E}_0 \ll \sqrt{m\omega\hbar}$.
+If the system starts in the ground state $\ket{0}$ at $t \to -\infty$, find the probability the state will be in an excited state $\ket{n}$ using first-order time-dependent perturbation theory.
+Examine the behavior when $\tau \ll 1/\omega$ and $\tau \gg 1/\omega$.
+
+
+\paragraph{Solution:}
+
+As usual, we introduce ladder operators:
+\begin{align}
+	\hat a
+	=
+	\sqrt{\frac{m \omega}{2 \hbar}} ( \hat x + \frac{i}{m\omega}\hat p),
+	\qquad
+	\hat a^\dagger
+	=
+	\sqrt{\frac{m \omega}{2 \hbar}} ( \hat x - \frac{i}{m\omega}\hat p),
+\end{align}
+\begin{align}
+	\hat x = \sqrt{
+		\frac{\hbar}{2m \omega}
+	}
+	(\hat a^\dagger +\hat a),
+	\qquad
+	\hat p =i \sqrt{
+		\frac{\hbar m \omega}{2}
+		% \frac{\hbar}{2m \omega}
+	}
+	(\hat a^\dagger - \hat a),
+\end{align}
+\begin{align}
+	\hat a \ket{n} = \sqrt{n} \ket{n-1}
+	,
+	\qquad
+	\hat a^\dagger \ket{n} = \sqrt{n+1}\ket{n+1},
+	\qquad
+	\hat a \ket{0} = 0.
+\end{align}
+This makes the relevant matrix elements of $\hat V(t)$:
+\begin{align}
+	V_{mn}(t)
+	&=\nonumber
+	\braket{m|\hat V(t)|n}
+	=
+	q \mathcal{E}(t)
+	\bra{m}
+	\hat x
+	\ket{n}
+	=
+	q \mathcal{E}(t)
+	\sqrt{\frac{\hbar}{2m\omega}}
+	\bra{m}
+	(\hat a^\dagger + \hat a)
+	\ket{n}
+	=
+	q \mathcal{E}(t)
+	\sqrt{\frac{\hbar}{2m\omega}}
+	\bra{m}
+	(\sqrt{n+1}\ket{n+1}+ \sqrt{n}\ket{n-1})
+	\\
+	&
+	=
+	q\mathcal{E}(t)
+	\sqrt{\frac{\hbar}{2m\omega}}
+	\left(
+	\sqrt{n+1} \delta_{m,n+1}
+	+
+	\sqrt{n} \delta_{m,n-1}
+	\right).
+\end{align}
+For the ground state,
+\begin{align}
+	V_{n0}(t)
+	=
+	q\mathcal{E}(t)
+	\sqrt{\frac{\hbar}{2m\omega}}
+	\left(
+		\sqrt{1} \delta_{n1}
+		+
+		\sqrt{0} \delta_{n,-1}
+	\right)
+	=
+	q\mathcal{E}(t)
+	\sqrt{\frac{\hbar}{2m\omega}}
+	\delta_{n1}.
+\end{align}
+Note that $\omega_{0n} = \omega n$, where $\omega$ is the frequency of the oscillator.
+We are left to compute the integral,
+\begin{align}
+	c_n^{(1)}(t \to \infty)
+	&=\nonumber
+	-\frac{i}{\hbar}
+	\int_{-\infty}^\infty
+	dt
+	e^{i\omega_{n0} t}
+	V_{n0}(t)
+	=
+	-i q
+	\delta_{n1}
+	\sqrt{
+		\frac{1}{2m\omega\hbar}
+	}
+	\int_{-\infty}^\infty
+	dt
+	e^{in\omega t}
+	\mathcal{E}(t)
+	\\
+	&
+	=
+	-i
+	\delta_{n1}
+	\frac{q\mathcal{E}_0}{\tau}
+	\sqrt{
+		\frac{1}{2\pi m\omega\hbar}
+	}
+	\int_{-\infty}^\infty
+	dt
+	e^{in\omega t - t^2/\tau^2}
+	=
+	-i
+	\delta_{n1}
+	\frac{q\mathcal{E}_0}{\tau}
+	\sqrt{
+		\frac{1}{2\pi m\omega\hbar}
+	}
+	e^{-n^2 \tau^2\omega^2/4}
+	\int_{-\infty}^\infty
+	dt
+	e^{-(t/\tau - i n \tau \omega/2)^2}
+	\\
+	&
+	=
+	-i
+	\delta_{n1}
+	\frac{q\mathcal{E}_0}{\tau}
+	\sqrt{
+		\frac{1}{2\pi m\omega\hbar}
+	}
+	e^{-n^2 \tau^2\omega^2/4}
+	\int_{-\infty}^\infty
+	dt
+	e^{-(t/\tau)^2}
+	=
+	-i
+	\delta_{n1}
+	q
+	\mathcal{E}_0
+	\sqrt{
+		\frac{1}{2 m\omega\hbar}
+	}
+	e^{-n^2 \tau^2\omega^2/4}.
+\end{align}
+This means that the probability of transition to state $\ket{1}$ is,
+\begin{align}
+	p_{0 \to 1} =
+	|c_1^{(1)}(t \to \infty)|^2 
+	=
+	\frac{q^2\mathcal{E}_0^2}{2 m \omega \hbar}
+	e^{-\tau^2 \omega^2/2},
+\end{align}
+and the probability of transition to any other excited state is $0$.
+When $\tau \to 0$ (i.e., $\tau \ll 1/\omega$), $V(t)$ becomes a delta perturbation and $c_1^{(1)}(t \to \infty)
+=
+-iq\mathcal{E}_0/\sqrt{2m \omega \hbar}$ which is consistent with the integral $-(i \mathcal{E}_0q/\sqrt{2m \omega \hbar}) \int_{-\infty}^\infty 
+dt
+e^{i\omega t}
+\delta(t).
+$
+When $\tau \gg 1/\omega$, we see $|\mathcal{E}'(t)| = \frac{2 |t| \mathcal{E}_0 e^{-\frac{t^2}{\tau ^2}}}{\sqrt{\pi } \tau ^3}
+\leq
+\sqrt{\frac{2}{e \pi }}\frac{ \mathcal{E}_0}{\tau ^2}
+$,
+so the perturbation is varied very slowly.
+In this case, $c_1^{(1)}(t \to \infty) = 0$, so there is no change made after a long time.
+This can be seen as a case of the adiabatic theorem.
+
+\section*{Appendix: How do we know what functions have a $\delta$ distribution behavior as a limit?}
+
+The $\delta$ distribution function is defined so that $\delta(x) = 0$ for all $x \ne 0$, and for all functions $g$,
+\begin{align}
+	\int_{-\infty}^\infty \delta(x) g(x) dx = g(0).
+\end{align}
+Equivalently,
+\begin{align}
+	\int_{-\varepsilon}^{\varepsilon} \delta(x) g(x) dx = g(0),
+\end{align}
+for all $\varepsilon > 0$.
+If $f_\eta$ is a collection of functions parameterized by $\eta$, $f_\eta$ converges to a $\delta$ distribution function as $\eta \to a$ if,
+\begin{align}
+	\lim_{\eta \to a}
+	\int_{-\infty}^\infty g(x) f_\eta(x) dx
+	=
+	g(0),
+\end{align}
+for all functions $g$.
+In most cases, $a = \infty$ or $0$.
+Here are two nice ways to check this behavior:
+
+\paragraph{Taylor series:}
+
+If we play fast-and-loose mathematically, we can say that all functions $g$ of interest can be written as,
+\begin{align}
+	g(x)
+	=
+	g(0)
+	+
+	\sum_{n=1}^\infty g^{(n)}(0) \frac{x^n}{n!},
+\end{align}
+in some neighborhood of $x = 0$.
+Therefore, if we can show,
+\begin{gather}
+	\lim_{\eta \to a}
+	f_\eta(x) = 0, \qquad x \ne 0
+	\\
+	\lim_{\eta \to a}
+	\int_{-\infty}^\infty
+	f_\eta(x)
+	dx
+	=
+	1\\
+	\lim_{\eta \to a}
+	\int_{-\infty}^\infty
+	f_\eta(x)
+	x^n
+	dx
+	= 0, \qquad n \geq 1
+\end{gather}
+then,
+\begin{align}
+	\lim_{\eta \to a}\int_{-\infty}^\infty g(x) f_\eta (x)
+	=
+	g(0)
+	\lim_{\eta \to a}
+	\int_{-\infty}^\infty
+	f_\eta(x)
+	dx
+	+
+	\sum_{n=1}^\infty \frac{g^{n}(0)}{n!}
+	\lim_{\eta \to a} \int_{-\infty}^\infty f_\eta(x) x^n dx
+	=
+	g(0).
+\end{align}
+
+\paragraph{Fourier transform:}
+
+Consider that,
+\begin{align}
+	\int_{-\infty}^\infty e^{-2\pi ikx} \delta(x) dx
+	=
+	1,
+\end{align}
+which says that the Fourier transform of the $\delta$ distribution function is $1$, so by the Fourier inversion theorem,
+\begin{align}
+	\delta(x)
+	=
+	\int_{-\infty}^\infty e^{2\pi ikx}dk
+	=
+	\frac{1}{\sqrt{2\pi}}
+	\int_{-\infty}^{\infty}
+	e^{ikx}
+	dk.
+\end{align}
+Therefore, $f_\eta$ converges to a $\delta$ distribution function as $\eta \to a$ if,
+\begin{align}
+	\lim_{\eta \to a}
+	\mathcal{F}[f_\eta](k)
+	=
+	\lim_{\eta \to a}
+	\int_{-\infty}^\infty 
+	e^{ikx} f_\eta(k)dk
+	=
+	\frac{1}{\sqrt{2\pi}}.
+\end{align}
+
+
+% If $f_\eta(x)$ has all derivatives defined at $x = 0$ for $\eta \ne a$, then we can write,
+% \begin{align}
+% 	f_\eta (x)
+% 	=
+% 	f_\eta (0)
+% 	+
+% 	\sum_{n = 1}^\infty f^{(n)}_\eta (0) \frac{x^n}{n!}.
+% \end{align}
+% If we are able to show,
+% \begin{align}
+% 	\lim_{\eta \to a} \int_{-\infty}^\infty
+% 	f_\eta(0) g(x) dx
+% \end{align}
+
+
+\end{document}
+
+
+
+
+
+

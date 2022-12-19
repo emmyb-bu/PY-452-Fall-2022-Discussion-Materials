@@ -1,0 +1,1589 @@
+\documentclass[10pt]{article}
+% \usepackage{geometry}
+% \geometry{margin=0.2in}
+\usepackage[utf8]{inputenc}
+
+\nonstopmode
+% \usepackage{minted}[cache=false]
+\usepackage{graphicx} % Required for including pictures
+\usepackage[figurename=Figure]{caption}
+% \usepackage{float}    % For tables and other floats
+\usepackage{amsmath}  % For math
+\usepackage{amssymb}  % For more math
+\usepackage{fullpage} % Set margins and place page numbers at bottom center
+% \usepackage{paralist} % paragraph spacing
+% \usepackage{subfig}   % For subfigures
+%\usepackage{physics}  % for simplified dv, and 
+% \usepackage{enumitem} % useful for itemization
+% \usepackage{siunitx}  % standardization of si units
+\usepackage{hyperref}
+% \usepackage{mmacells}
+% \usepackage{listings}
+% \usepackage{svg}
+% \usepackage{xcolor, soul}
+\usepackage{bm}
+\usepackage{braket}
+\usepackage{cancel}
+% \usepackage{setspace}
+% \usepackage{listings}
+% \usepackage{listings}
+% \usepackage[autoload=true]{jlcode}
+% \usepackage{pygmentize}
+
+% \definecolor{cambridgeblue}{rgb}{0.64, 0.76, 0.68}
+
+% \sethlcolor{cambridgeblue}
+
+\usepackage[margin=1.8cm]{geometry}
+\newcommand{\C}{\mathbb C}
+\newcommand{\D}{\bm D}
+\newcommand{\R}{\mathbb R}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\N}{\mathbb N}
+\newcommand{\PP}{\mathbb P}
+\newcommand{\A}{\mathbb A}
+\newcommand{\F}{\mathbb F}
+\newcommand{\1}{\mathbf 1}
+\newcommand{\ip}[1]{\left< #1 \right>}
+\newcommand{\abs}[1]{\left| #1 \right|}
+\newcommand{\norm}[1]{\left\| #1 \right\|}
+
+\def\Tr{{\rm Tr}}
+\def\tr{{\rm tr}}
+\def\Var{{\rm Var}}
+\def\calA{{\mathcal A}}
+\def\calB{{\mathcal B}}
+\def\calD{{\mathcal D}}
+\def\calE{{\mathcal E}}
+\def\calG{{\mathcal G}}
+\def\from{{:}}
+\def\lspan{{\rm span}}
+\def\lrank{{\rm rank}}
+\def\bd{{\rm bd}}
+\def\acc{{\rm acc}}
+\def\cl{{\rm cl}}
+\def\sint{{\rm int}}
+\def\ext{{\rm ext}}
+\def\lnullity{{\rm nullity}}
+% \DeclareSIUnit\clight{\text{\ensuremath{c}}}
+% \DeclareSIUnit\fm{\femto\m}
+% \DeclareSIUnit\hplanck{\text{\ensuremath{h}}}
+
+
+% \lstdefinelanguage{julia}%
+%   {morekeywords={abstract,break,case,catch,const,continue,do,else,elseif,%
+%       end,export,false,for,function,immutable,import,importall,if,in,%
+%       macro,module,otherwise,quote,return,switch,true,try,type,typealias,%
+%       using,while},%
+%    sensitive=true,%
+% %    alsoother={$},%
+%    morecomment=[l]\#,%
+%    morecomment=[n]{\#=}{=\#},%
+%    morestring=[s]{"}{"},%
+%    morestring=[m]{'}{'},%
+% }[keywords,comments,strings]%
+
+% \lstset{%
+%     language         = Julia,
+%     basicstyle       = \ttfamily,
+%     keywordstyle     = \bfseries\color{blue},
+%     stringstyle      = \color{magenta},
+%     commentstyle     = \color{ForestGreen},
+%     showstringspaces = false,
+% }
+
+% $
+\begin{document}
+\begin{center}
+	\hrule
+	\vspace{.4cm}
+	{\textbf { \large CAS PY 452 --- Quantum Physics II}}
+\end{center}
+Emmy Blumenthal \hspace{\fill} \hspace{\fill}  \textbf{} Discussion Notes\  \\
+\textbf{Date:}\  Oct 26, 2022   \hspace{\fill} \textbf{Email:}\ emmyb320@bu.edu 
+\vspace{.4cm}
+\hrule
+
+
+
+
+
+\section*{Degenerate perturbation theory: $2 \times 2$}
+
+\paragraph{Problem:}
+
+Find the energies, stationary states, and degeneracies of a spin-$\frac{1}{2}$ particle quadratically coupled to a magnetic field:
+\begin{align}
+	\hat H_0 = h_z \hat S_z^2,
+\end{align}
+where $\hat S_z$ is the $z$-spin operator for spin-$\frac{1}{2}$ and $h_z > 0$ is a constant with units of dimension $[\text{energy}]^{-1} \times [\text{time}]^{-2}$.
+Next, perturb the Hamiltonian as $\hat H_0 \to \hat H_0 + \hat H'$ where,
+\begin{align}
+	\hat H' = \lambda \hat S_y,
+\end{align}
+where $\lambda > 0$ is a constant with units of dimension $[\text{time}]^{-1}$ and $\lambda \ll h_z \hbar$.
+Find the first-order and second-order perturbed energies and the first-order perturbed states.
+Finally, compute the expected value of $\hat S_x$ for each perturbed state.
+
+\paragraph{Solution:}
+
+In the basis $\{\ket{\uparrow},\ket{\downarrow}\}$, the spin-$\frac{1}{2}$ operators are,
+\begin{gather}
+	[\hat S_x]_{\{\ket{\uparrow},\ket{\downarrow}\}}
+	=
+	\frac{\hbar}{2} \left(
+		\begin{array}{cc}
+			0 & 1\\
+			1 & 0
+		\end{array}
+	\right),
+	\qquad
+	[\hat S_y]_{\{\ket{\uparrow},\ket{\downarrow}\}}
+	=
+	\frac{\hbar}{2} \left(
+		\begin{array}{cc}
+			0 & -i\\
+			i & 0
+		\end{array}
+	\right),
+	\qquad
+	[\hat S_z]_{\{\ket{\uparrow},\ket{\downarrow}\}}
+	=
+	\frac{\hbar}{2} \left(
+		\begin{array}{cc}
+			1 & 0\\
+			0 & -1
+		\end{array}
+	\right),
+	% \qquad
+	\\
+	[\hat S_z^2]_{\{\ket{\uparrow},\ket{\downarrow}\}}
+	=
+	\frac{\hbar^2}{4} \left(
+		\begin{array}{cc}
+			1 & 0\\
+			0 & 1
+		\end{array}
+	\right),
+\end{gather}
+In case this matrix notation is unclear: for example, this means $\hat S_x \ket{\uparrow} = \frac{\hbar}{2} \ket{\downarrow}$ and $\hat S_y (\ket{\uparrow} + \ket{\downarrow}) = \frac{\hbar}{2} (-i \ket{\uparrow} + i \ket{\downarrow})$.
+To find the energies, we find the eigenvalues of $\hat H_0$:
+\begin{align}
+	\det(\hat H_0 - E I)
+	=
+	\left|
+\begin{array}{cc}
+ \frac{\hbar ^2 h_z}{4}-E & 0 \\
+ 0 & \frac{\hbar ^2 h_z}{4}-E \\
+\end{array}
+\right|
+=
+\left(
+	\frac{\hbar ^2 h_z}{4}-E
+\right)^2
+=
+0
+\implies
+E = \frac{\hbar ^2 h_z}{4}.
+\end{align}
+To find the stationary states, we solve the eigenvalue equation:
+\begin{gather}
+	\hat H_0 (\alpha_\uparrow \ket{\uparrow} + \alpha_\downarrow \ket{\downarrow})
+	=
+	E(\alpha_\uparrow \ket{\uparrow} + \alpha_\downarrow \ket{\downarrow})
+\\
+	% \alpha_\uparrow \hat H_0\ket{\uparrow} + \alpha_\downarrow \hat H_0 \ket{\downarrow}
+	% =
+	\alpha_\uparrow \frac{h_z \hbar^2}{4} \ket{\uparrow} + \alpha_\downarrow \frac{h_z \hbar^2}{4}\ket{\downarrow}
+	=
+	\frac{\hbar ^2 h_z}{4}(\alpha_\uparrow \ket{\uparrow} + \alpha_\downarrow \ket{\downarrow}).
+\end{gather}
+We see that any choice of $\alpha_\uparrow, \alpha_\downarrow$ would satisfies this eigenvalue equation and that there are two distinct eigenvectors we can form using choices of $\alpha_\uparrow, \alpha_\downarrow$.
+This means that there is a degeneracy and $E_1^{(0)} = E_2^{(0)} = \hbar^2 h_z / 4$.
+To make our computations easier in the basis $\{\ket{\uparrow}, \ket{\downarrow}\}$, we will choose $\alpha_\uparrow =1, \alpha_\downarrow = 0$ and $\alpha_\uparrow = 0, \alpha_\downarrow = 1$.
+Our degenerate ground states are then $\ket{\phi_1^{(0)}} = \ket{\uparrow}$ and $\ket{\phi_2^{(0)}} = \ket{\downarrow}$.
+The matrix elements of the Hamiltonian in the basis $\{\ket{\phi_1^{(0)}},\ket{\phi_2^{(0)}}\}$ is,
+\begin{align}
+	[\hat H_0]_{\{\ket{\phi_1^{(0)}},\ket{\phi_2^{(0)}}\}}
+	=
+	\left(
+		\begin{array}{cc}
+			\braket{\phi_1^{(0)} | \hat H_0 | \phi_1^{(0)}} & \braket{\phi_1^{(0)} | \hat H_0 | \phi_2^{(0)}}\\
+			\braket{\phi_2^{(0)} | \hat H_0 | \phi_1^{(0)}} & \braket{\phi_2^{(0)} | \hat H_0 | \phi_2^{(0)}}
+		\end{array}
+	\right)
+	=
+	\left(
+	\begin{array}{cc}
+		\frac{\hbar^2h_z}{4} & 0\\
+		0 & \frac{\hbar^2h_z}{4}\\
+	\end{array}
+	\right)
+\end{align}
+
+In order to perturb the Hamiltonian, we will need the following matrix elements (in the basis  $\{\ket{\phi_1^{(0)}},\ket{\phi_2^{(0)}}\}$):
+\begin{align}
+	[\hat H']_{\{\ket{\phi_1^{(0)}},\ket{\phi_2^{(0)}}\}}
+	=
+	\left(
+		\begin{array}{cc}
+			\braket{\phi_1^{(0)} | \hat H' | \phi_1^{(0)}} & \braket{\phi_1^{(0)} | \hat H' | \phi_2^{(0)}}\\
+			\braket{\phi_2^{(0)} | \hat H' | \phi_1^{(0)}} & \braket{\phi_2^{(0)} | \hat H' | \phi_2^{(0)}}
+		\end{array}
+	\right)
+	=
+	\left(
+\begin{array}{cc}
+ 0 & -\frac{1}{2} i \lambda  \hbar  \\
+ \frac{1}{2} i \lambda  \hbar & 0 \\
+\end{array}
+\right).
+\end{align}
+When calculating the first-order correction to the states, we will have to evaluate the terms $\frac{\braket{\phi_2^{(0)} | \hat H' | \phi_1^{(0)}}}{E_1^{(0)} - E_2^{(0)}} \ket{\phi_1^{(0)}}$ and $\frac{\braket{\phi_1^{(0)} | \hat H' | \phi_2^{(0)}}}{E_2^{(0)} - E_1^{(0)}} \ket{\phi_2^{(0)}}$, but because the denominators are zero, we have a problem.
+Our rule-of-thumb tells us though that if we can get the numerators to be zero, we can ignore these problematic terms.
+As we saw above, for $\hat H_0$, we can choose a different linear combination of eigenvectors and it will still be an eigenvector (i.e., different choice of $\alpha_\uparrow,\alpha_\downarrow$).
+Therefore, if we diagonalize $\hat H'$ so that the problematic terms are zero, $\hat H_0$ will be left unchanged.
+The eigenvectors of $\hat H'$ are $\ket{\phi_a^{(0)}}=\frac{1}{\sqrt{2}} \left(i\ket{\uparrow} +  \ket{\downarrow}\right)$ and $\ket{\phi_b^{(0)}}=\frac{1}{\sqrt{2}} \left(i\ket{\uparrow} -  \ket{\downarrow}\right)$, so if we change to the basis $\{\ket{\phi_a^{(0)}},\ket{\phi_b^{(0)}}\}$,
+\begin{align}
+	[\hat H']_{\{\ket{\phi_a^{(0)}},\ket{\phi_b^{(0)}}\}}
+	&=
+	\left(
+		\begin{array}{cc}
+			\braket{\phi_a^{(0)} | \hat H' | \phi_a^{(0)}} & \braket{\phi_a^{(0)} | \hat H' | \phi_b^{(0)}}\\
+			\braket{\phi_b^{(0)} | \hat H' | \phi_a^{(0)}} & \braket{\phi_b^{(0)} | \hat H' | \phi_b^{(0)}}
+		\end{array}
+	\right)
+	=
+	\left(
+\begin{array}{cc}
+- \frac{\lambda\hbar}{2} & 0\\
+0 & \frac{\lambda \hbar}{2}
+\end{array}
+\right),
+\\
+[\hat H_0]_{\{\ket{\phi_a^{(0)}},\ket{\phi_b^{(0)}}\}}
+&=
+\left(
+	\begin{array}{cc}
+		\braket{\phi_a^{(0)} | \hat H_0 | \phi_a^{(0)}} & \braket{\phi_a^{(0)} | \hat H_0 | \phi_b^{(0)}}\\
+		\braket{\phi_b^{(0)} | \hat H_0 | \phi_a^{(0)}} & \braket{\phi_b^{(0)} | \hat H_0 | \phi_b^{(0)}}
+	\end{array}
+\right)
+=
+\left(
+\begin{array}{cc}
+	\frac{\hbar^2h_z}{4} & 0\\
+	0 & \frac{\hbar^2h_z}{4}\\
+\end{array}
+\right).
+\end{align}
+By changing to the eigenvector basis of $\hat H'$ that is also an eigenvector basis for $\hat H_0$, we have diagonalized both $\hat H'$ and $\hat H_0$, meaning that the off-diagonal elements (i.e., the problematic elements) of $\hat H'$ are zero.
+This means that $\ket{\phi_a^{(0)}},\ket{\phi_b^{(0)}}$ are the ``good states.''
+We can now proceed with our calculations:
+\begin{align}
+	E_a^{(1)}
+	&=
+	\braket{\phi_{a}^{(0)} | \hat H' | \phi_{a}^{(0)}}
+	=
+	-\frac{\lambda\hbar}{2}
+	\\
+	E_b^{(1)}
+	&=
+	\braket{\phi_{b}^{(0)} | \hat H' | \phi_{b}^{(0)}}
+	=
+	+\frac{\lambda\hbar}{2}
+	\\
+	E_a^{(2)}
+	&=
+	\sum_{m \ne a}
+	\frac{|\braket{\phi_{m}^{(0)} | \hat H' | \phi_{a}^{(0)}}|^2}{E_{m}^{(0)}-E_{a}^{(0)}}
+	=
+	\cancelto{0}{\frac{|\braket{\phi_{b}^{(0)} | \hat H' | \phi_{a}^{(0)}}|^2}{E_{b}^{(0)}-E_{a}^{(0)}}}
+	=
+	0
+	\\
+	E_b^{(2)}
+	&=
+	\sum_{m \ne b}
+	\frac{|\braket{\phi_{m}^{(0)} | \hat H' | \phi_{b}^{(0)}}|^2}{E_{m}^{(0)}-E_{b}^{(0)}}
+	=
+	\cancelto{0}{\frac{|\braket{\phi_{a}^{(0)} | \hat H' | \phi_{b}^{(0)}}|^2}{E_{a}^{(0)}-E_{b}^{(0)}}}
+	=
+	0
+	\\
+	% E_a^{(2)}
+	\ket{\phi^{(1)}_a}
+	&=
+	\sum_{m \ne a}
+	\frac{\braket{\phi_{m}^{(0)} | \hat H' | \phi_{a}^{(0)}}}{E_{m}^{(0)}-E_{a}^{(0)}}
+	\ket{\phi_m^{(0)}}
+	=
+	\cancelto{0}{\frac{\braket{\phi_{b}^{(0)} | \hat H' | \phi_{a}^{(0)}}}{E_{b}^{(0)}-E_{a}^{(0)}}} 
+	\ket{\phi_b^{(0)}}
+	=
+	0
+	\\
+	\ket{\phi^{(1)}_b}
+	&=
+	\sum_{m \ne b}
+	\frac{\braket{\phi_{m}^{(0)} | \hat H' | \phi_{b}^{(0)}}}{E_{m}^{(0)}-E_{b}^{(0)}}
+	\ket{\phi_m^{(0)}}
+	=
+	\cancelto{0}{\frac{\braket{\phi_{a}^{(0)} | \hat H' | \phi_{b}^{(0)}}}{E_{a}^{(0)}-E_{b}^{(0)}}}
+	\ket{\phi_a^{(0)}}
+	=
+	0
+	\\
+	E_a
+	&=
+	\frac{\hbar^2h_z}{4}
+	-\frac{\lambda\hbar}{2}
+	+
+	0
+	+
+	\cdots
+	\\
+	E_b
+	&=
+	\frac{\hbar^2h_z}{4}
+	+\frac{\lambda\hbar}{2}
+	+
+	0
+	+
+	\cdots
+	\\
+	\ket{\phi_a}
+	&=
+	\ket{\phi_a^{(0)}}
+	+
+	0
+	+
+	\cdots
+	=
+	\frac{1}{\sqrt{2}} \left(i\ket{\uparrow} +  \ket{\downarrow}\right)
+	+
+	0
+	+
+	\cdots
+	\\
+	\ket{\phi_b}
+	&=
+	\ket{\phi_b^{(0)}}
+	+
+	0
+	+
+	\cdots
+	=
+	\frac{1}{\sqrt{2}} \left(i\ket{\uparrow} -  \ket{\downarrow}\right)
+	+
+	0
+	+
+	\cdots
+\end{align}
+We see that there are no second-order corrections to the energies or first-order corrections to the states because of our diagonalization. 
+However, from this process, we have obtained the resulting states that arise when the perturbation is turned on and the energy levels separate according to the first-order corrections to the energies.
+Now, we can calculate,
+\begin{align}
+	\braket{\phi_a | \hat S_x |\phi_a}
+	&=
+	\left(\frac{1}{\sqrt{2}} \left(-i\bra{\uparrow} +  \bra{\downarrow}\right)\right)
+	\hat S_x
+	\left(
+		\frac{1}{\sqrt{2}} \left(i\ket{\uparrow} +  \ket{\downarrow}\right)
+	\right)
+	=
+	-
+	\frac{\hbar}{2},
+	\\
+	\braket{\phi_b | \hat S_x |\phi_b}
+	&=
+	\left(\frac{1}{\sqrt{2}} \left(-i\bra{\uparrow} -  \bra{\downarrow}\right)\right)
+	\hat S_x
+	\left(
+		\frac{1}{\sqrt{2}} \left(i\ket{\uparrow} -  \ket{\downarrow}\right)
+	\right)
+	=
+	\frac{\hbar}{2},
+\end{align}
+so we see that despite there being no explicit correction to our state according to the computations, there are tangible results found by identifying the ``good states.''
+
+% To find the stationary states, we solve 
+% \begin{align}
+% 	\hat S_z \ket{\psi}
+% \end{align}
+
+
+\newpage
+
+
+
+
+
+
+\section*{Degenerate perturbation theory: $2 \times 2$ in a $3 \times 3$ system}
+
+\paragraph{Problem:}
+
+Repeat what we did in the previous problem but now we consider spin-1 and
+\begin{align}
+	\hat H_0 = - h_z \hat S_z^2,
+	\qquad 
+	\hat H' = \lambda (\hat S_x^2 +\hbar \hat S_x),
+\end{align}
+
+\paragraph{Solution:}
+
+In the basis $\beta = \{\ket{\uparrow}, \ket{0}, \ket{\downarrow}\}$, the spin-1 operators are,
+\begin{gather}
+	[\hat S_x]_\beta
+	=
+	\frac{\hbar}{\sqrt{2}}
+	\left(
+		\begin{array}{ccc}
+		 0 & 1 & 0 \\
+		 1 & 0 & 1 \\
+		 0 & 1 & 0 \\
+		\end{array}
+	\right),
+	\qquad
+	[\hat S_y]_\beta
+	=
+	\frac{\hbar}{i\sqrt{2}}
+	\left(
+\begin{array}{ccc}
+ 0 & 1 & 0 \\
+ -1 & 0 & 1 \\
+ 0 & -1 & 0 \\
+\end{array}
+\right),
+\qquad
+[\hat S_z]_\beta
+=
+\hbar
+\left(
+\begin{array}{ccc}
+ 1 & 0 & 0 \\
+ 0 & 0 & 0 \\
+ 0 & 0 & -1 \\
+\end{array}
+\right)\\
+[\hat S_z^2]_\beta
+=
+\hbar^2
+\left(
+\begin{array}{ccc}
+ 1 & 0 & 0 \\
+ 0 & 0 & 0 \\
+ 0 & 0 & 1 \\
+\end{array}
+\right).
+\end{gather}
+The un-perturbed and perturbing Hamiltonians in this basis are,
+\begin{align}
+	[\hat H_0]_\beta
+	=h_z\hbar^2
+	\left(
+	\begin{array}{ccc}
+	 -1 & 0 & 0 \\
+	 0 & 0 & 0 \\
+	 0 & 0 & -1 \\
+	\end{array}
+	\right)
+	,\qquad
+	[\hat H']_\beta
+	=
+	\lambda
+	\hbar^2
+	\left(
+		\begin{array}{ccc}
+		 \frac{1}{2} & \frac{1}{\sqrt{2}} & \frac{1}{2} \\
+		 \frac{1}{\sqrt{2}} & 1 & \frac{1}{\sqrt{2}} \\
+		 \frac{1}{2} & \frac{1}{\sqrt{2}} & \frac{1}{2} \\
+		\end{array}
+		\right).
+\end{align}
+We see that because $[\hat H_0]_\beta$ is already diagonalized, there are two degenerate stationary states $\ket{\phi_1^{(0)}} = \ket{\uparrow}$ and $\ket{\phi_2^{(0)}} =\ket{\downarrow}$ with a common energy $E_1^{(0)} = E_2^{(0)} = -h_z \hbar^2$ and another stationary state $\ket{\phi_3^{(0)}} = \ket{0}$ with energy $E_3^{(0)} = 0$.
+We can put the un-perturbed Hamiltonian and perturbing Hamiltonian in the new basis $\gamma = \{\ket{\phi_1^{(0)}},\ket{\phi_2^{(0)}},\ket{\phi_3^{(0)}}\}$, where states with common energies are grouped together:
+\begin{align}
+	[\hat H_0]_\gamma
+	=h_z\hbar^2
+	\left(
+	\begin{array}{ccc}
+	 -1 & 0 & 0 \\
+	 0 & -1 & 0 \\
+	 0 & 0 & 0 \\
+	\end{array}
+	\right)
+	,\qquad
+	[\hat H']_\gamma
+	=
+	\lambda \hbar^2
+	\left(
+\begin{array}{ccc}
+ \frac{1}{2} & \frac{1}{2} & \frac{1}{\sqrt{2}} \\
+ \frac{1}{2} & \frac{1}{2} & \frac{1}{\sqrt{2}} \\
+ \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} & 1 \\
+\end{array}
+\right).
+\end{align}
+Note the matrix representations for an operator $A$ in the bases $\beta, \gamma$ are related by $[A]_\gamma = O_{\beta \gamma}^\dagger [A]_\beta O_{\beta \gamma}$ where $O_{\beta\gamma}= \left(
+	\begin{array}{ccc}
+	 1 & 0 & 0 \\
+	 0 & 0 & 1 \\
+	 0 & 1 & 0 \\
+	\end{array}
+	\right)$.
+The $2 \times 2$ block in the upper left of matrices $	[\hat H_0]_\gamma$ and $[\hat H']_\gamma$ is known as the `degenerate block' with energy $E_1^{(0)} = E_2^{(0)} = - h_z \hbar^2$.
+In order to perform perturbation theory and not have to deal with terms that blow up, we need the terms on the off-diagonal within the degenerate block to be zero.
+This is done by forming appropriate linear combinations of the basis states $\ket{\phi_1^{(0)}}$ and $\ket{\phi_2^{(0)}}$ that diagonalize the $2 \times 2$ block.
+To perform the diagonalization, we find the eigenvectors of the $2 \times 2$ block: $\frac{\lambda\hbar^2}{2}\left(
+	\begin{array}{cc}
+		1 & 1\\
+		1 & 1
+	\end{array}
+\right)$.
+The eigenvectors of the block are $\frac{1}{\sqrt{2}} \left(\begin{array}{c}
+	1\\1
+\end{array}\right)$ and $\frac{1}{\sqrt{2}} \left(\begin{array}{c}
+	1\\-1
+\end{array}\right)$ which can be found by finding the eigenvalues then solving the eigenvector equation.
+This tells us that our new basis vectors should be chosen so that $\ket{\phi_1^{(0)}}$ and $\ket{\phi_2^{(0)}}$ are replaced with $\ket{\phi_a^{(0)}} = \frac{1}{\sqrt{2}}(\ket{\phi_1^{(0)}} + \ket{\phi_2^{(0)}})$ and $\ket{\phi_b^{(0)}} =  \frac{1}{\sqrt{2}}(\ket{\phi_1^{(0)}} - \ket{\phi_2^{(0)}})$.
+We call this new basis $\eta = \{\ket{\phi_a^{(0)}}, \ket{\phi_b^{(0)}}, \ket{\phi_3^{(0)}}\}$.
+The change-of-basis matrix is,
+\begin{align}
+	O_{\gamma \eta} = 
+	\left(
+		\begin{array}{ccc}
+		 \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} & 0 \\
+		 \frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}} & 0 \\
+		 0 & 0 & 1 \\
+		\end{array}
+		\right)
+\end{align}
+so in the new basis the un-perturbed and perturbing Hamiltonians are,
+\begin{align}
+	[\hat H_0]_\eta
+	&=
+	O_{\gamma\eta}^\dagger
+	[\hat H_0]_\gamma
+	O_{\gamma\eta}
+	=
+	\hbar^2 h_z
+	\left(
+\begin{array}{ccc}
+ -1 & 0 & 0 \\
+ 0 & -1 & 0 \\
+ 0 & 0 & 0 \\
+\end{array}
+\right)
+=
+\left(
+	\begin{array}{ccc}
+		\braket{\phi_a^{(0)} | \hat H_0 | \phi_a^{(0)}}
+		&
+		\braket{\phi_a^{(0)} | \hat H_0 | \phi_b^{(0)}}
+		&
+		\braket{\phi_a^{(0)} | \hat H_0 | \phi_3^{(0)}}
+		\\
+		\braket{\phi_b^{(0)} | \hat H_0 | \phi_a^{(0)}}
+		&
+		\braket{\phi_b^{(0)} | \hat H_0 | \phi_b^{(0)}}
+		&
+		\braket{\phi_b^{(0)} | \hat H_0 | \phi_3^{(0)}}
+		\\
+		\braket{\phi_3^{(0)} | \hat H_0 | \phi_a^{(0)}}
+		&
+		\braket{\phi_3^{(0)} | \hat H_0 | \phi_b^{(0)}}
+		&
+		\braket{\phi_3^{(0)} | \hat H_0 | \phi_3^{(0)}}
+		\\
+	\end{array}
+\right)
+,
+\\
+% \qquad
+[\hat H']_\eta
+&=
+O_{\gamma\eta}^\dagger
+[\hat H']_\gamma
+O_{\gamma\eta}
+=
+\lambda\hbar^2
+\left(
+\begin{array}{ccc}
+ 1 & 0 & 1 \\
+ 0 & 0 & 0 \\
+ 1 & 0 & 1 \\
+\end{array}
+\right)
+=
+\left(
+	\begin{array}{ccc}
+		\braket{\phi_a^{(0)} | \hat H' | \phi_a^{(0)}}
+		&
+		\braket{\phi_a^{(0)} | \hat H' | \phi_b^{(0)}}
+		&
+		\braket{\phi_a^{(0)} | \hat H' | \phi_3^{(0)}}
+		\\
+		\braket{\phi_b^{(0)} | \hat H' | \phi_a^{(0)}}
+		&
+		\braket{\phi_b^{(0)} | \hat H' | \phi_b^{(0)}}
+		&
+		\braket{\phi_b^{(0)} | \hat H' | \phi_3^{(0)}}
+		\\
+		\braket{\phi_3^{(0)} | \hat H' | \phi_a^{(0)}}
+		&
+		\braket{\phi_3^{(0)} | \hat H' | \phi_b^{(0)}}
+		&
+		\braket{\phi_3^{(0)} | \hat H' | \phi_3^{(0)}}
+		\\
+	\end{array}
+\right).
+\end{align}
+We see that by changing to the new basis $\eta$, we have made the off-diagonal elements of the $2 \times 2$ degenerate block all zero so that we may proceed with the perturbation theory calculation.
+I have written out what each matrix entry represents as a matrix elements on the RHS of the above equations in order to make what we're doing and how it relates to the computations a bit more explicit.
+Now, we can proceed with the perturbation theory calculation:
+\begin{align}
+	E_a^{(1)}
+	&=
+	\braket{\phi_a^{(0)} | \hat H' | \phi_a^{(0)}}
+	=
+	\lambda\hbar^2
+	\\
+	E_b^{(1)}
+	&=
+	\braket{\phi_b^{(0)} | \hat H' | \phi_b^{(0)}}
+	=
+	0
+	\\
+	E_3^{(1)}
+	&=
+	\braket{\phi_3^{(0)} | \hat H' | \phi_3^{(0)}}
+	=
+	\lambda\hbar^2
+	\\
+	E_a^{(2)}
+	&=
+	\sum_{m \ne a}
+	\frac{|\braket{\phi_m^{(0)} | \hat H' | \phi_a^{(0)}}|^2}{E_a^{(0)} - E_m^{(0)}}
+	=
+	\cancelto{0}{\frac{|\braket{\phi_b^{(0)} | \hat H' | \phi_a^{(0)}}|^2}{E_a^{(0)} - E_b^{(0)}}}
+	+
+	\frac{\lambda\hbar^2}{-\hbar^2 h_z}
+	=
+	-\frac{\lambda^2\hbar^2}{h_z}
+	\\
+	E_b^{(2)}
+	&=
+	\sum_{m \ne b}
+	\frac{\braket{|\phi_m^{(0)} | \hat H' | \phi_b^{(0)}}|^2}{E_b^{(0)} - E_m^{(0)}}
+	=
+	\cancelto{0}{\frac{|\braket{\phi_a^{(0)} | \hat H' | \phi_b^{(0)}}|^2}{E_b^{(0)} - E_a^{(0)}}}
+	+
+	0
+	% \frac{\lambda^2\hbar^4}{-\hbar^2 h_z}
+	=
+	% -\frac{\lambda^2 \hbar^2}{h_z}
+	0
+	\\
+	E_3^{(2)}
+	&=
+	\sum_{m \ne 3}
+	\frac{|\braket{\phi_m^{(0)} | \hat H' | \phi_3^{(0)}}|^2}{E_3^{(0)} - E_m^{(0)}}
+	=
+	\frac{\lambda^2\hbar^4}{\hbar^2 h_z}
+	+
+	0
+	=
+	+
+	\frac{\lambda^2\hbar^2}{h_z}
+	\\
+	\ket{\phi^{(1)}_a}
+	&=
+	\sum_{m \ne a}
+	\frac{\braket{\phi_m^{(0)} | \hat H' | \phi_a^{(0)}}}{E_a^{(0)} - E_m^{(0)}}
+	\ket{\phi_m^{(0)}}
+	=
+	\cancelto{0}{\frac{\braket{\phi_b^{(0)} | \hat H' | \phi_a^{(0)}}}{E_a^{(0)} - E_b^{(0)}}}
+	\ket{\phi_b^{(0)}}
+	-
+	\frac{\lambda\hbar^2}{\hbar^2 h_z}
+	\ket{\phi_3^{(0)}}
+	=
+	-
+	\frac{\lambda}{ h_z}
+	\ket{0}
+	% \frac{1}{\sqrt{2}}
+	% \left(
+	% 	\ket{\uparrow}
+	% 	+
+	% 	\ket{\downarrow}
+	% \right)
+	\\
+	\ket{\phi^{(1)}_b}
+	&=
+	\sum_{m \ne b}
+	\frac{\braket{\phi_m^{(0)} | \hat H' | \phi_b^{(0)}}}{E_b^{(0)} - E_m^{(0)}}
+	\ket{\phi_m^{(0)}}
+	=
+	\cancelto{0}{\frac{\braket{\phi_a^{(0)} | \hat H' | \phi_b^{(0)}}}{E_b^{(0)} - E_a^{(0)}}}
+	\ket{\phi_a^{(0)}}
+	+
+	% \frac{\lambda\hbar^2}{\hbar^2 h_z}
+	% \ket{\phi_3^{(0)}}
+	0
+	=
+	% \frac{\lambda}{ h_z}
+	% \ket{0}
+	0
+	\\
+	\ket{\phi^{(1)}_3}
+	&=
+	\sum_{m \ne 3}
+	\frac{\braket{\phi_m^{(0)} | \hat H' | \phi_3^{(0)}}}{E_3^{(0)} - E_m^{(0)}}
+	\ket{\phi_m^{(0)}}
+	=
+	\frac{\lambda\hbar^2}{\hbar^2 h_z}
+	\ket{\phi_a^{(0)}}
+	+
+	0
+	=
+	\frac{\lambda}{h_z} \frac{1}{\sqrt{2}}
+	(\ket{\uparrow} + \ket{\downarrow}).
+	% \frac{\lambda\hbar^2}{-\hbar^2 h_z}
+	% \ket{\phi_b^{(0)}}
+	% +
+	% % \frac{\lambda\hbar^2}{-\hbar^2 h_z}
+	% % \ket{\phi_a^{(0)}}
+	% % % =
+	% -
+	% \frac{\sqrt{2}\lambda}{h_z}
+	% \ket{\uparrow }
+	% \cancelto{0}{\frac{\braket{\phi_a^{(0)} | \hat H' | \phi_3^{(0)}}}{E_3^{(0)} - E_a^{(0)}}}
+	% \ket{\phi_a^{(0)}}
+	% +
+	% \frac{\lambda\hbar^2}{\hbar^2 h_z}
+	% \ket{\phi_3^{(0)}}
+	% =
+	% \frac{\lambda}{ h_z}
+	% \ket{0}
+	% \frac{1}{\sqrt{2}}
+	% \left(
+	% 	\ket{\uparrow}
+	% 	+
+	% 	\ket{\downarrow}
+	% \right)
+	% \ket{\phi_3^{(0)}}
+\end{align}
+Putting this all together,
+\begin{align}
+	\ket{\phi_a}
+	&=
+	\ket{\phi_a^{(0)}}
+	+
+	\ket{\phi_a^{(1)}}
+	+
+	\cdots
+	=
+	\frac{1}{\sqrt{2}} (\ket{\uparrow} + \ket{\downarrow})
+	-
+	\frac{\lambda}{h_z} \ket{0}
+	+
+	\cdots
+	% \xrightarrow{\text{normalize}}
+	% \ket{\phi_a}
+	% =
+	% \frac{1}{\sqrt{1+\lambda^2/h_z^2}}
+	% (	\frac{1}{\sqrt{2}} (\ket{\uparrow} + \ket{\downarrow})
+	% -
+	% \frac{\lambda}{h_z} \ket{0})
+	\\
+	\ket{\phi_b}
+	&=
+	\ket{\phi_b^{(0)}}
+	+
+	\ket{\phi_b^{(1)}}
+	+
+	\cdots
+	=
+	\frac{1}{\sqrt{2}} (\ket{\uparrow} - \ket{\downarrow})
+	+
+	0
+	% \frac{\lambda}{h_z} \ket{0}
+	+
+	\cdots
+	% \xrightarrow{\text{already normalized}}
+	% \ket{\phi_b}
+	% =	\frac{1}{\sqrt{2}} (\ket{\uparrow} - \ket{\downarrow})
+	\\
+	\ket{\phi_3}
+	&=
+	\ket{\phi_3^{(0)}}
+	+
+	\ket{\phi_3^{(1)}}
+	+
+	\cdots
+	=
+	\ket{0}
+	+
+	\frac{\lambda}{h_z\sqrt{2}}
+	(\ket{\uparrow}+\ket{\downarrow})
+	+
+	\cdots
+	% \xrightarrow{\text{normalize}}
+	% \ket{\phi_3}
+	% =
+	% \frac{1}{\sqrt{1+\lambda^2/h_z^2}}
+	% (
+	% 	\frac{\lambda}{h_z\sqrt{2}}
+	% 	(\ket{\uparrow}+\ket{\downarrow})
+	% 	+
+	% 	\ket{0}
+	% )
+	\\
+	E_a
+	&=
+	E_a^{(0)}
+	+
+	E_a^{(1)}
+	+
+	E_a^{(2)}
+	+
+	=
+	-\hbar^2 h_z 
+	+
+	\lambda\hbar^2
+	-
+	\lambda^2 \frac{\hbar^2}{h_z}
+	\cdots
+	\\
+	E_b
+	&=
+	E_b^{(0)}
+	+
+	E_b^{(1)}
+	+
+	E_b^{(2)}
+	+
+	\cdots
+	=
+	-\hbar^2 h_z 
+	+
+	0
+	+
+	0
+	+
+	\cdots
+	\\
+	E_3
+	&=
+	E_3^{(0)}
+	+
+	E_3^{(1)}
+	+
+	E_3^{(2)}
+	+
+	\cdots
+	=
+	0
+	+
+	\lambda \hbar^2
+	+
+	\lambda^2\frac{\hbar^2}{h_z}
+	+
+	\cdots
+\end{align}
+To first order, the expected $x$-magnetizations are:
+\begin{align}
+	\braket{\phi_a|\hat S_x | \phi_a}
+	&=
+	% \frac{1}{1+\lambda^2/h_z^2}
+	\left(
+\begin{array}{c}
+ \frac{1}{\sqrt{2}} \\
+ -\frac{\lambda }{h_z} \\
+ \frac{1}{\sqrt{2}} \\
+\end{array}
+\right)^\dagger
+\frac{\hbar}{\sqrt{2}}
+\left(
+\begin{array}{ccc}
+ 0 & 1 & 0 \\
+ 1 & 0 & 1 \\
+ 0 & 1 & 0 \\
+\end{array}
+\right)
+		\left(
+\begin{array}{c}
+ \frac{1}{\sqrt{2}} \\
+ -\frac{\lambda }{h_z} \\
+ \frac{1}{\sqrt{2}} \\
+\end{array}
+\right)
+=
+-
+{2 \hbar (\lambda/\hbar)}
+% {1+\lambda^2/\hbar^2}
+\\
+\braket{\phi_b|\hat S_x | \phi_b}
+&=
+\left(
+\begin{array}{c}
+\frac{1}{\sqrt{2}} \\
+0\\
+-\frac{1}{\sqrt{2}} \\
+\end{array}
+\right)^\dagger
+\frac{\hbar}{\sqrt{2}}
+\left(
+\begin{array}{ccc}
+0 & 1 & 0 \\
+1 & 0 & 1 \\
+0 & 1 & 0 \\
+\end{array}
+\right)
+	\left(
+\begin{array}{c}
+\frac{1}{\sqrt{2}} \\
+0 \\
+-\frac{1}{\sqrt{2}} \\
+\end{array}
+\right)
+=
+0
+\\
+\braket{\phi_3 | \hat S_x | \phi_3}
+&=
+% \frac{1}{1+\lambda^2/h_z^2}
+\left(
+\begin{array}{c}
+ \frac{\lambda }{\sqrt{2} h_z} \\
+ 1 \\
+ \frac{\lambda }{\sqrt{2} h_z} \\
+\end{array}
+\right)^\dagger
+\frac{\hbar}{\sqrt{2}}
+\left(
+\begin{array}{ccc}
+0 & 1 & 0 \\
+1 & 0 & 1 \\
+0 & 1 & 0 \\
+\end{array}
+\right)
+\left(
+\begin{array}{c}
+ \frac{\lambda }{\sqrt{2} h_z} \\
+ 1 \\
+ \frac{\lambda }{\sqrt{2} h_z} \\
+\end{array}
+\right)
+=
+{2 \hbar (\lambda/\hbar)}
+% {1+\lambda^2/\hbar^2}
+\end{align}
+% More to come later today\dots Along with better writing/grammar, etc., \dots
+% We find these linear combinations by diagonalization through finding the eigenvectors of the $2 \times 2$ block.
+
+
+\newpage
+
+
+\section*{Variational method and the radial equation}
+
+\paragraph{Problem:}
+
+Consider the 3D system of a particle in a isotropic, central, quadratic potential $V(r) =\alpha r^2$ so that its Hamiltonian is,
+\begin{align}
+	\hat H = -\frac{\hbar^2}{2m}\nabla^2 + \alpha r^2.
+\end{align}
+Provide an ansatz, apply the variational method, and find an upper bound on the ground state energy.
+
+\paragraph{Reminder:}
+
+When we solve the time-independent Schr\"odinger equation with a spherically-symmetric potential, we use separation of variables, write $\psi(r,\theta,\phi) = Y_\ell^m(\theta,\phi) R(r)$, and arrive at the equation,
+\begin{align}
+	\left[-\frac{\hbar^2}{2m} \frac{d^2}{dr^2} + \frac{\hbar^2 \ell (\ell + 1)}{2 m r^2} + V(r)\right]u(r)
+	=
+	Eu(r),
+\end{align}
+where $u(r) = r R(r)$.
+This is the `reduced radial equation' and can be found in Griffiths in the section titled {\em Radial equation}.
+This means that,
+\begin{align}
+	\hat H [Y_\ell^m (\theta,\phi)u(r) r^{-1}]
+	=
+	\left[-\frac{\hbar^2}{2m} \frac{d^2u}{dr^2} + \frac{\hbar^2 \ell (\ell + 1)}{2 m r^2}u(r) + V(r)u(r)\right]
+	Y_\ell^m(\theta,\phi) r^{-1}.
+	\label{rreqaseigenstate}
+\end{align}
+Also, remember the following about the spherical harmonics:
+\begin{gather}
+	\int_0^\pi \int_0^{2\pi} Y_{\ell_2}^{m_2}(\theta,\phi)^\ast Y_{\ell_1}^{m_1}(\theta,\phi) d\theta d\phi
+	=
+	\delta_{\ell_1 \ell_2}
+	\delta_{m_1 m_2}
+	\\
+	Y_0^0 (\theta,\phi)
+	=
+	\frac{1}{2\sqrt{\pi}}.
+\end{gather}
+Therefore, if the wave-function is of the form $\psi(r,\theta,\phi) = Y_\ell^m u(r)r^{-1}$, the normalization condition becomes,
+\begin{align}
+	1 = \int_0^\infty\int_0^{2\pi}\int_0^\pi  \psi^\ast \psi r^2 \sin\theta d\theta d\phi dr
+	=
+	\left(
+		\int_0^\pi \int_0^{2\pi} |Y_{\ell}^m (\theta,\phi)|^2\sin \theta d\theta d\phi
+	\right)
+	\left(
+		\int_0^\infty [r^{-1} u(r)]^\ast r^{-1} u(r) r^2 dr
+	\right)
+	=
+	\int_0^\infty |u(r)|^2dr.
+\end{align}
+
+\paragraph{Solution:}
+
+Using the radial equation, we see that if we choose ansatzes of the form $\psi(r,\theta,\phi) = Y_\ell^m (\theta,\phi) u(r) r^{-1}$, computations become significantly easier.
+Therefore, as an example, we will choose $u_a(r) = Ae^{-ar^2}$ where $A$ is a normalization constant and $a$ is a variational parameter.
+Additionally, we will find a state with zero angular momentum: $\ell = 0$.
+This makes the `whole' ansatz $\psi_a (r,\theta,\phi)= A Y_0^0(\theta,\phi) e^{-ar^2} r^{-1}
+=
+A r^{-1}e^{-ar^2}/(2 \sqrt{\pi})
+$.
+Going through our usual variational method procedure, first we normalize:
+\begin{align}
+	1 = \iiint |\psi_a|^2 dV
+	=
+	\int_0^\infty |u_a(r)|^2 dr
+	=
+	A^2 \int_0^\infty e^{-2ar^2} dr
+	=
+	A^2 \frac{1}{2} \sqrt{\frac{\pi}{2a}}
+	% \frac{A^2}{2a}
+	\implies
+	A
+	=
+	\left(\frac{8a}{\pi}\right)^{1/4},
+\end{align}
+where we have used the formula $\int_{-\infty}^\infty e^{-b x^2} dx = \sqrt{\pi/b}$.
+Next we compute the Hamiltonian acting on the ansatz according to equation \ref{rreqaseigenstate},
+\begin{align}
+	\hat H [\psi_a]
+	\nonumber
+	&=
+	A Y_0^0(\theta,\phi)
+	r^{-1}
+	\left[
+		-\frac{\hbar^2}{2 m}
+		\frac{d^2}{dr^2}
+		e^{-ar^2}
+		+
+		\frac{\hbar^2 0 (0+1)}{2 m r^2}
+		e^{-ar^2}
+		+
+		\alpha r^2 e^{-ar^2}
+	\right]\\
+	&
+	=
+	A Y_0^0(\theta,\phi)
+	r^{-1}
+	\left[
+		-\frac{\hbar^2}{2 m}
+		\left[
+			4 a^2 r^2 e^{-a r^2}-2 a e^{-a r^2}
+		\right]
+		+
+		\frac{\hbar^2 0 (0+1)}{2 m r^2}
+		e^{-ar^2}
+		+
+		\alpha r^2 e^{-ar^2}
+	\right]
+	\nonumber
+	\\
+	&=
+	A Y_0^0 (\theta,\phi)r^{-1}
+	\left[
+	\left(
+		\alpha-\frac{2\hbar^2a^2}{m} 
+	\right)r^2 e^{-ar^2}
+	+
+	\frac{\hbar^2 a}{m}
+	e^{-ar^2}
+	\right].
+\end{align}
+Next, we compute the expected energy,
+\begin{align}
+	\braket{\psi_a | \hat H | \psi_a}
+	&=\nonumber
+	\int_0^{2\pi}
+	\int_0^{\pi}
+	\int_0^\infty 
+	\psi_a^\ast \hat H[\psi_a]
+	r^2 \sin\theta dr
+	d\theta
+	d\phi
+	\\
+	&=
+	A^2
+	\cancelto{1}{\iint|Y_0^0 (\theta,\phi)|^2d\Omega}\;
+	\int_0^\infty r^{-1}e^{-a r^2}r^{-1}
+	\left[
+	\left(
+		\alpha-\frac{2\hbar^2a^2}{m} 
+	\right)r^2 e^{-ar^2}
+	+
+	\frac{\hbar^2 a}{m}
+	e^{-ar^2}
+	\right]
+	r^2
+	dr
+	\nonumber
+	\\
+	&=
+	A^2 
+	\left[
+	\left(
+		\alpha-\frac{2\hbar^2a^2}{m} 
+	\right)
+	\int_0^\infty 
+	r^2 e^{-2ar^2}
+	dr
+	+
+	\frac{\hbar^2 a}{m}
+	\int_0^\infty 
+	e^{-2ar^2}
+	dr
+	\right].
+	\nonumber
+\end{align}
+To calculate these integrals we use integration by parts,
+\begin{gather}
+	% \int_0^\infty r^2 e^{-2ar^2} dr
+	% =
+	\frac{d}{dr} r e^{-2ar^2}
+	=
+	e^{-2ar^2}
+	-
+	4a r^2 e^{-2ar^2}
+	\implies
+	\left. r e^{-2ar^2}\right|_{r=0}^{r \to \infty}
+	=
+	\int_0^\infty e^{-2ar^2} dr
+	-
+	4a 
+	\int_0^\infty r^2 e^{-2ar^2} dr
+	\nonumber
+	\\
+	0
+	=
+	\frac{1}{2}\sqrt{\frac{\pi}{2a}}
+	-
+	4a \int_0^\infty r^2 e^{-2ar^2} dr
+	\implies
+	\int_0^\infty r^2 e^{-2ar^2}dr
+	=
+	\frac{1}{8}
+	\sqrt{\frac{\pi}{2a^3}}.
+\end{gather}
+Therefore,
+\begin{align}
+	\braket{\psi_a | \hat H | \psi_a}
+	&=
+	A^2 
+	\left[
+	\left(
+		\alpha-\frac{2\hbar^2a^2}{m} 
+	\right)
+	\frac{1}{8} \sqrt{\frac{\pi}{2a^3}}
+	+
+	\frac{\hbar^2 a}{m}
+	\frac{1}{8}\sqrt{\frac{\pi}{2a^3}}
+	\right]
+	=
+	A^2 \sqrt{\frac{\pi}{2}}
+	\left(
+		\frac{\alpha }{8 a^{3/2}}+\frac{\sqrt{a} \hbar ^2}{4 m}
+	\right)
+	% \\
+	% &
+	=
+	\frac{\alpha }{4 a}+\frac{a \hbar ^2}{2 m}.
+	\label{eEn}
+\end{align}
+Next, we minimize this by computing stationary points of $\braket{\psi_a | \hat H | \psi_a}$ with respect to $a$:
+\begin{align}
+	\frac{\partial}{\partial a}\braket{\psi_a | \hat H | \psi_a}
+	=
+	\frac{\hbar ^2}{2 m}-\frac{\alpha }{4 a^2}
+	=
+	0
+	\implies
+	\frac{a^2 \hbar ^2}{2 m}-\frac{\alpha }{4}
+	=
+	0
+	\implies
+	a 
+	=
+	\pm
+	\sqrt{\frac{m\alpha}{2\hbar^2}}.
+\end{align}
+We must have $a^\star = \sqrt{m\alpha/(2\hbar^2)}$ because if $a^\star$ were negative, the ansatz would not be normalizable.
+Plugging this back into the average energy (line \ref{eEn}), the variational energy is,
+\begin{align}
+	\braket{\psi_a | \hat H | \psi_a}
+	=\sqrt{\frac{\alpha\hbar^2}{2m}}.
+\end{align}
+
+
+
+
+
+% Next we compute the Hamiltonian acting on the ansatz by according to equation \ref{rreqaseigenstate},
+% \begin{align}
+% 	\hat H[\psi_a]
+% 	&=\nonumber
+% 	Y_0^0(\theta,\phi) r^{-1}
+% 	\left(-\frac{\hbar^2}{2m} \frac{d^2u}{dr^2} + \frac{\hbar^2 0 (0 + 1)}{2 m r^2}u(r) + \alpha r^2 u(r)\right)
+% 	\\
+% 	&=\nonumber
+% 	A
+% 	Y_0^0(\theta,\phi) r^{-1}
+% 	\left(-\frac{\hbar^2}{2m} 
+% 	\left(
+% 		4 a^2 r^2 e^{-a r^2}-2 a e^{-a r^2}
+% 	\right) + 0 + \alpha r^2 e^{-a r^2}\right)
+% 	\\
+% 	&=\nonumber
+% 	A
+% 	Y_0^0(\theta,\phi) r^{-1}
+% 	\left[
+% 		\frac{a \hbar^2}{m} e^{-ar^2}
+% 		+
+% 		\left(
+% 			\alpha
+% 			-
+% 			\frac{2a^2\hbar^2}{m}
+% 		\right)
+% 		r^2 e^{-ar^2}
+% 	\right].
+	% \left(
+	% 	-\frac{\hbar^2}{2m}
+	% 	(4 a^2 r^2 e^{-a r^2}-2 a e^{-a r^2})
+	% 	+
+	% 	0
+	% 	+
+	% 	\alpha r e^{-a r^2}
+	% \right)\\
+	% &=
+	% A Y_0^0(\theta,\phi)r^{-1}
+	% \left(
+	% 	-\frac{\hbar^2}{2m}(4a^2 r^2 - 2 a)
+	% 	+
+	% 	\alpha r
+	% \right)
+	% e^{-a r^2}.
+% \end{align}
+% Next, we compute the expected energy,
+% \begin{align}
+% 	\braket{\psi_a|\hat H |\psi_a}
+% 	&=\nonumber
+% 	\int_0^{2\pi} \int_0^\pi \int_0^\infty 
+% 	\psi_a^\ast \hat H[\psi_a] 
+% 	r^2 dr d\theta d\phi
+% 	\\
+% 	&=\nonumber
+% 	A^2 \int_0^{2\pi} \int_0^\pi 
+% 	|Y_0^0(\theta,\phi)|^2 d \theta d\phi
+% 	\int_0^\infty 
+% 	r^{-1}
+% 	e^{-ar^2}
+% 	r^{-1}
+% 	\left[
+% 		\frac{a \hbar^2}{m}
+% 		+
+% 		\left(
+% 			\alpha
+% 			-
+% 			\frac{2a^2\hbar^2}{m}
+% 		\right)
+% 		r^2 
+% 	\right]
+% 	e^{-ar^2} r^2 dr
+% 	\\
+% 	&=
+% 	A^2 
+% 	\left[
+% 		\frac{a\hbar^2}{m}\int_0^\infty e^{-2ar^2} dr
+% 		+
+% 		\left(
+% 			\alpha - \frac{2a\hbar^2}{m}
+% 		\right)
+% 		\int_0^\infty e^{-2ar^2} r^2dr
+% 	\right].
+% \end{align}
+% Observe that,
+% \begin{gather}
+% 	\frac{d}{dr} r e^{-2ar^2}
+% 	=
+% 	e^{-2ar^2}
+% 	-4a r^2 e^{-2ar^2}
+% 	\implies
+% 	\left.r e^{-2ar^2} \right|_{r=0}^{r\to\infty}
+% 	=	
+% 	\int_0^\infty e^{-2ar^2} dr
+% 	-
+% 	4a \int_0^\infty e^{-2ar^2} r^2 dr
+% \nonumber\\
+% \implies
+% 0
+% =
+% \sqrt{\frac{\pi}{8 a}}
+% -
+% 4a \int_0^\infty e^{-2ar^2} r^2 dr
+% \implies
+% \int_0^\infty e^{-2ar^2} r^2 dr
+% =
+% \frac{1}{8}\sqrt{\frac{\pi}{2a^3}},
+% \end{gather}
+% so,
+% \begin{align}
+% 	\braket{\psi_a|\hat H |\psi_a}
+% 	=
+% 	\sqrt{\frac{8a^3}{\pi}}
+% 	\left[
+% 		\frac{a\hbar^2}{m} \sqrt{\frac{\pi}{8a}}
+% 		+
+% 		\left(
+% 			\alpha - \frac{2a\hbar^2}{m}
+% 		\right)
+% 		\frac{1}{8} \sqrt{\frac{\pi}{2a^3}}
+% 	\right]
+% 	=
+% 	\frac{\alpha}{4}
+% 	+
+% 	\frac{\hbar^2}{2m}a^2.
+% \end{align}
+% Finally, we have to minimize the expected energy,
+% \begin{align}
+% 	\frac{\partial}{\partial a}
+% 	\braket{\psi_a | \hat H| \psi_a}
+% 	=
+% \end{align}
+% Next, we compute the expected energy:
+% \begin{align}
+% 	\braket{\psi_a | \hat H | \psi_a}
+% 	&=\nonumber
+% 	A^2
+% 	\int_0^{2\pi}
+% 	\int_0^\pi
+% 	\int_0^\infty
+% 	Y_0^0(\theta,\phi)^\ast r^{-1} 
+% 	e^{-ar^2}
+% 	Y_0^0(\theta,\phi)r^{-1}
+% 	\left(
+% 		-\frac{\hbar^2}{2m}(4a^2 r^2 - 2 a)
+% 		+
+% 		\alpha r
+% 	\right)
+% 	e^{-a r^2}
+% 	r^2 dr d\theta d\phi
+% 	\\
+% 	&=\nonumber
+% 	A^2 
+% 	\int_0^{2\pi}
+% 	\int_0^\pi
+% 	|Y_0^0(\theta,\phi)|^2
+% 	d\theta d\phi
+% 	\int_0^\infty 
+% 	\left(-\frac{\hbar^2}{2m} ( 4a^2 r^2 - 2a) + \alpha r\right) e^{-2ar^2}
+% 	dr
+% 	\\
+% 	&=%\nonumber
+% 	A^2
+% 	\left[
+% 		-\frac{2a^2\hbar^2}{m}
+% 	\int_0^\infty 
+% 	e^{-2ar^2} r^2 dr
+% 	+
+% 	\frac{\hbar^2a}{m}
+% 	\int_0^\infty 
+% 	e^{-2ar^2}
+% 	dr
+% 	+
+% 	\alpha
+% 	\int_0^\infty  e^{-2\alpha r^2} r
+% 	dr
+% 	\right].
+% 	% \int_0^\infty 
+% 	% \left(-\frac{\hbar^2}{2m} ( 4a^2 r^2 - 2a) + \alpha r\right) e^{-2ar^2}
+% 	% dr
+% \end{align}
+% Observe that,
+% \begin{gather}
+% 	\int_0^\infty e^{-2ar^2} r dr
+% 	=
+% 	\frac{1}{4a}
+% 	\int_0^\infty e^{-u} du
+% 	=
+% 	\frac{1}{4a}
+% 	\\
+% 	\frac{d}{dr} e^{-2ar^2} r
+% 	=
+% 	e^{-2ar^2}
+% 	-
+% 	2 a r^2 e^{-ar^2}
+% 	\implies
+% 	\left.
+% 	r e^{-2ar^2}	
+% 	\right|_{r=0}^{r\to\infty}
+% 	=
+% 	\int_0^\infty e^{-2ar^2} dr
+% 	-4a \int_0^\infty r^2 e^{-2ar^2}dr
+% 	\\
+% 	\nonumber
+% 	\implies
+% 	0
+% 	=
+% 	\frac{1}{2}\sqrt{\frac{\pi}{2a}}
+% 	-
+% 	4a
+% 	\int_0^\infty r^2 e^{-2ar^2}dr
+% 	\implies
+% 	\int_0^\infty r^2 e^{-2ar^2}dr
+% 	=
+% 	\frac{1}{8}\sqrt{\frac{\pi}{2 a^{3}}}.
+% 	% \sqrt{\frac{\pi}{8a^3}}
+% \end{gather}
+% Therefore, 
+% \begin{align}
+% 	\braket{\psi_a | \hat H | \psi_a}
+% 	&=
+% 	A^2
+% 	\left[
+% 		-\frac{2a^2\hbar^2}{m}
+% 		\frac{1}{8} 
+% 		\sqrt{\frac{\pi}{2a^3}}
+% 		+
+% 		\frac{\hbar^2 a}{m} 
+% 		\sqrt{\frac{\pi}{8a}}
+% 		+
+% 	\frac{\alpha}{4a}
+% 	\right]
+% \end{align}
+
+% 	\sqrt{2a} Y_0^0(\theta,\phi) r^{-1}
+% 	\left(-\frac{\hbar^2}{2m} (-a)^2e^{-ar} + 0 + \alpha r e^{-ar}\right)
+% 	\\
+% 	&=
+% 	\sqrt{2a} Y_0^0(\theta,\phi) r^{-1}
+% 	\left(-\frac{\hbar^2a^2}{2m} + \alpha r \right)e^{-ar}.
+% \end{align}
+% Now, we compute the expected energy:
+% \begin{align}
+% 	\braket{\psi_a | \hat H | \psi_a}
+% 	&\nonumber
+% 	=
+% 	\iiint \psi_a^\ast \hat H[\psi_a] dV
+% 	=
+% 	2 a \int_0^{2\pi} \int_0^\pi \int_0^\infty Y_0^0(\theta,\phi)^\ast  r^{-1} e^{-ar} Y_0^0(\theta,\phi)  r^{-1}\left(-\frac{\hbar^2a^2}{2m} + \alpha r \right)e^{-ar} r^2 dr  d\theta d\phi 
+% 	\\
+% 	&
+% 	=
+% 	2a 
+% 	\left(
+% 		\int_0^{2\pi} \int_0^\pi
+% 		Y_0^0(\theta,\phi)^\ast Y_0^0(\theta,\phi)
+% 		d\theta d\phi
+% 	\right)
+% 	\left(
+% 		\int_0^\infty \left(-\frac{\hbar^2a^2}{2m} + \alpha r \right) e^{-2ar} dr
+% 	\right)
+% 	\nonumber
+% 	\\
+% 	&=
+% 	2a 
+% 	\left(
+% 		-\frac{\hbar^2 a^2}{2m}\int_0^\infty e^{-2ar} dr
+% 		+
+% 		\alpha \int_0^\infty r e^{-2ar} dr
+% 	\right).
+% Observe that:
+% \begin{align}
+% 	\nonumber
+% 	\frac{d}{dr} r e^{-2ar}
+% 	=
+% 	e^{-2ar}
+% 	-2a r e^{-2ar}
+% 	&\implies
+% 	\left.r e^{-2ar}\right|_{r=0}^{r\to\infty}
+% 	=
+% 	\int_0^\infty 
+% 	e^{-2ar}
+% 	dr
+% 	-
+% 	2a
+% 	\int_0^\infty r e^{-2ar} dr
+% 	\\
+% 	\implies
+% 	0
+% 	=
+% 	\frac{1}{2a}
+% 	-
+% 	2a \int_0^\infty r e^{-2ar}dr
+% 	&\implies
+% 	\int_0^\infty r e^{-2ar} dr
+% 	=
+% 	\frac{1}{4a^2},
+% \end{align}
+% so,
+% \begin{align}
+% 	\braket{\psi_a | \hat H | \psi_a}
+% 	=
+% 	2a 
+% 	\left(
+% 		-\frac{\hbar^2 a^2}{2m}\frac{1}{2a}
+% 		+
+% 		\alpha 
+% 		\frac{1}{4a^2}
+% 	\right)
+% 	=
+% 	-
+% 	\frac{\hbar^2a^2}{2m}
+% 	+
+% 	\frac{\alpha}{2a}.
+% \end{align}
+% To minimize this expected energy, we find the stationary points by taking the partial derivative with respect to $a$:
+% \begin{align}
+% 	\frac{\partial}{\partial a}
+% 	\braket{\psi_a | \hat H | \psi_a}
+% 	=
+% 	-
+% 	\frac{\hbar^2 a}{m}
+% 	-
+% 	\frac{\alpha}{2a^2}
+% 	=
+% 	0
+% 	\implies
+% 	% \frac{2\hbar^2 a^3}{m}
+% 	a^3	
+% 	=-\frac{m\alpha}{2 \hbar^2}.
+% \end{align}
+% The cubic equation $a^3 = -b$ for some $b>0$ has three solutions: $a = - b^{1/3}$, $a = (-1)^{1/3} b^{1/3}$, and $a = (-1)^{5/3} b^{1/3}$.
+% For our ansatz to obey the boundary conditions, we must have $e^{-ar} \to 0$ as $r \to \infty$, meaning $\Re[a] > 0$.
+% This immediately rules out $a = -b^{1/3}$.
+% If we write $-1 = e^{i \pi}$, then $(-1)^{2/3} = e^{i2\pi/3} = \cos(2 \pi /3) + i \sin(2\pi/3)$ and $(-1)^{5/3} = \cos(5 \pi /3) + i \sin(5\pi/3)$.
+% Because $0< 2\pi/3< \pi$, $\cos(2 \pi /3) > 0$ and because $\pi < 5\pi/3< 2 \pi$, $\cos(5\pi/3) < 0$.
+% Therefore, the solution with a positive real part is $b = (-1)^{5/3} b^{1/3}$.
+% To be more precise, we could use $\sin(5\pi/3) = \sqrt{3}/2$ and $\cos(5)
+
+
+
+
+\end{document}
+
+
+
+
+
+
