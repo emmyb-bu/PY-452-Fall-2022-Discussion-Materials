@@ -101,7 +101,8 @@
 	{\textbf { \large CAS PY 452 --- Quantum Physics II}}
 \end{center}
 Emmy Blumenthal \hspace{\fill} \hspace{\fill}  \textbf{} Discussion Notes\  \\
-\textbf{Date:}\  Oct 26, 2022   \hspace{\fill} \textbf{Email:}\ emmyb320@bu.edu 
+\textbf{Date:}\  October 26, 2022   \hspace{\fill} \textbf{Email:}\ emmyb320@bu.edu
+
 \vspace{.4cm}
 \hrule
 
@@ -429,12 +430,16 @@ Repeat what we did in the previous problem but now we consider spin-1 and
 \begin{align}
 	\hat H_0 = - h_z \hat S_z^2,
 	\qquad 
-	\hat H' = \lambda (\hat S_x^2 +\hbar \hat S_x),
+	\hat H' = \lambda (\hat S_x^2 +\hbar \hat S_x).
 \end{align}
+Be careful to note that $\lambda$ has different units than in the previous problem.
 
 \paragraph{Solution:}
 
-In the basis $\beta = \{\ket{\uparrow}, \ket{0}, \ket{\downarrow}\}$, the spin-1 operators are,
+In the basis\footnote{
+	These states are shorthand for the simultaneous eigenstates of $\hat S^2$ and $S_z$: $\ket{\downarrow }\equiv\ket{1,-1},\ket{0} \equiv \ket{1,0},\ket{\uparrow} \equiv\ket{1,1}$.
+}
+$\beta = \{\ket{\uparrow}, \ket{0}, \ket{\downarrow}\}$, the spin-1 operators are,
 \begin{gather}
 	[\hat S_x]_\beta
 	=
@@ -791,13 +796,13 @@ Putting this all together,
 	\frac{\lambda}{h_z} \ket{0}
 	+
 	\cdots
-	% \xrightarrow{\text{normalize}}
-	% \ket{\phi_a}
-	% =
-	% \frac{1}{\sqrt{1+\lambda^2/h_z^2}}
-	% (	\frac{1}{\sqrt{2}} (\ket{\uparrow} + \ket{\downarrow})
-	% -
-	% \frac{\lambda}{h_z} \ket{0})
+	\xrightarrow{\text{normalize}}
+	\ket{\phi_a}
+	=
+	\frac{1}{\sqrt{1+\lambda^2/h_z^2}}
+	(	\frac{1}{\sqrt{2}} (\ket{\uparrow} + \ket{\downarrow})
+	-
+	\frac{\lambda}{h_z} \ket{0})
 	\\
 	\ket{\phi_b}
 	&=
@@ -813,9 +818,9 @@ Putting this all together,
 	% \frac{\lambda}{h_z} \ket{0}
 	+
 	\cdots
-	% \xrightarrow{\text{already normalized}}
-	% \ket{\phi_b}
-	% =	\frac{1}{\sqrt{2}} (\ket{\uparrow} - \ket{\downarrow})
+	\xrightarrow{\text{already normalized}}
+	\ket{\phi_b}
+	=	\frac{1}{\sqrt{2}} (\ket{\uparrow} - \ket{\downarrow})
 	\\
 	\ket{\phi_3}
 	&=
@@ -831,16 +836,16 @@ Putting this all together,
 	(\ket{\uparrow}+\ket{\downarrow})
 	+
 	\cdots
-	% \xrightarrow{\text{normalize}}
-	% \ket{\phi_3}
-	% =
-	% \frac{1}{\sqrt{1+\lambda^2/h_z^2}}
-	% (
-	% 	\frac{\lambda}{h_z\sqrt{2}}
-	% 	(\ket{\uparrow}+\ket{\downarrow})
-	% 	+
-	% 	\ket{0}
-	% )
+	\xrightarrow{\text{normalize}}
+	\ket{\phi_3}
+	=
+	\frac{1}{\sqrt{1+\lambda^2/h_z^2}}
+	(
+		\frac{\lambda}{h_z\sqrt{2}}
+		(\ket{\uparrow}+\ket{\downarrow})
+		+
+		\ket{0}
+	)
 	\\
 	E_a
 	&=
@@ -855,8 +860,9 @@ Putting this all together,
 	+
 	\lambda\hbar^2
 	-
-	\lambda^2 \frac{\hbar^2}{h_z}
-	\cdots
+	 \frac{\lambda^2\hbar^2}{h_z}
+	+
+	O((\lambda/h_z)^3)
 	\\
 	E_b
 	&=
@@ -892,13 +898,14 @@ Putting this all together,
 	+
 	\lambda^2\frac{\hbar^2}{h_z}
 	+
-	\cdots
+	O((\lambda/h_z)^3)
+	% \cdots
 \end{align}
 To first order, the expected $x$-magnetizations are:
 \begin{align}
 	\braket{\phi_a|\hat S_x | \phi_a}
 	&=
-	% \frac{1}{1+\lambda^2/h_z^2}
+	\frac{1}{1+\lambda^2/h_z^2}
 	\left(
 \begin{array}{c}
  \frac{1}{\sqrt{2}} \\
@@ -923,8 +930,9 @@ To first order, the expected $x$-magnetizations are:
 \right)
 =
 -
-{2 \hbar (\lambda/\hbar)}
-% {1+\lambda^2/\hbar^2}
+\frac
+{2 \hbar (\lambda/h_z)}
+{1+(\lambda/h_z)^2}
 \\
 \braket{\phi_b|\hat S_x | \phi_b}
 &=
@@ -955,7 +963,7 @@ To first order, the expected $x$-magnetizations are:
 \\
 \braket{\phi_3 | \hat S_x | \phi_3}
 &=
-% \frac{1}{1+\lambda^2/h_z^2}
+\frac{1}{1+\lambda^2/h_z^2}
 \left(
 \begin{array}{c}
  \frac{\lambda }{\sqrt{2} h_z} \\
@@ -979,8 +987,9 @@ To first order, the expected $x$-magnetizations are:
 \end{array}
 \right)
 =
-{2 \hbar (\lambda/\hbar)}
-% {1+\lambda^2/\hbar^2}
+\frac
+{2 \hbar (\lambda/h_z)}
+{1+(\lambda/h_z)^2}
 \end{align}
 % More to come later today\dots Along with better writing/grammar, etc., \dots
 % We find these linear combinations by diagonalization through finding the eigenvectors of the $2 \times 2$ block.

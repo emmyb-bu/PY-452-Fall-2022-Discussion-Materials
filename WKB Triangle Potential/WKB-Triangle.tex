@@ -101,7 +101,8 @@
 	{\textbf { \large CAS PY 452 --- Quantum Physics II}}
 \end{center}
 Emmy Blumenthal \hspace{\fill} \hspace{\fill}  \textbf{} Discussion Notes\  \\
-\textbf{Date:}\  Nov 2, 2022   \hspace{\fill} \textbf{Email:}\ emmyb320@bu.edu \ 
+\textbf{Date:}\  November 2, 2022   \hspace{\fill} \textbf{Email:}\ emmyb320@bu.edu
+
 \vspace{.4cm}
 \hrule
 
@@ -117,7 +118,7 @@ Consider the 1D quantum system described by the Hamiltonian,
 	+
 	\kappa |\hat x|.
 \end{align}
-Write the appropriate Bohr-Sommerfeld quantization relation and use the WKB method to approximate the allowed energies of the system.
+Write the appropriate Bohr-Sommerfeld quantization relation, and use the WKB method to approximate the allowed energies of the system.
 
 \paragraph{Solution:}
 
@@ -183,7 +184,7 @@ To find the quantization condition, we are left to compute the integral:
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=0.7\linewidth]{WKBenergies.pdf}
+	\includegraphics[width=0.7\linewidth]{fig/WKBenergies.pdf}
 	\caption{\label{WKBenergies}
 		Plot of WKB-approximated energies $E_n$ for various quantum numbers.
 	}
@@ -191,8 +192,8 @@ To find the quantization condition, we are left to compute the integral:
 
 \paragraph{Further notes and comparison with the exact solution:}
 
-If $\left(9 \pi^2 \kappa^2 \hbar^2 / 128m\right)^{1/3} = 0.8853 \times (\kappa^2 \hbar^2 / m)^{1/3}$ is small (i.e. $E^3 \ll \kappa^2 \hbar^2 / m$), then the spacing between energy levels is very small, and the states may seem to form a continuum.
-Note that this limit $E^3 \ll \kappa^2 \hbar^2 / m$ is similar to the small $\hbar$ limit.
+If $\left(9 \pi^2 \kappa^2 \hbar^2 / 128m\right)^{1/3} = 0.8853 \times (\kappa^2 \hbar^2 / m)^{1/3}$ is small (i.e. $E^3 \gg \kappa^2 \hbar^2 / m$), then the spacing between energy levels is very small, and the states may seem to form a continuum.
+Note that this limit $E^3 \gg \kappa^2 \hbar^2 / m$ is similar to the small $\hbar$ limit.
 In this continuum, within a small range $\delta E$, the number of states is $\frac{dn}{dE}\delta E = 
 (\frac{d}{dn} E_n)^{-1} \delta E = 
 \left(
@@ -205,11 +206,12 @@ This quantity is the so-called `density of states.'
 In the attached {\em Mathematica} notebook, we solve the system exactly for $x>0$ and $x<0$.
 Then, we require continuity of the wave-function and its derivative at $x = 0$ in order to obtain a quantization condition for the energies.
 In figure \ref{WKBenergies}, the WKB approximate energies are plotted.
-In figure \ref{WKBerrors}, the relative errors $|E_\text{WKB} - E_\text{exact}|/|E_\text{exact}|$ are plotted.
+In figure \ref{WKBerrors}, the relative errors $|E_\text{WKB} - E_\text{exact}|/|E_\text{exact}|$ are plotted; we can see that the WKB approximation becomes more accurate as $n$ increases/at higher energies.
+This is because the wavefunction is more oscillatory at higher energies, and the WKB approximation is derived from the assumption that the potential varies slowly compared to the wavefunction.
 
 \begin{figure}
 	\centering
-	\includegraphics[width=0.7\linewidth]{WKBerrors.pdf}
+	\includegraphics[width=0.7\linewidth]{fig/WKBerrors.pdf}
 	\caption{
 		\label{WKBerrors}
 		Log-scale plot of WKB relative errors.

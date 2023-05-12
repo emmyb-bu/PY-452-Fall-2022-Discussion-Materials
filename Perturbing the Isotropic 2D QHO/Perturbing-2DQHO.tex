@@ -101,7 +101,8 @@
 	{\textbf { \large CAS PY 452 --- Quantum Physics II}}
 \end{center}
  Emmy Blumenthal \hspace{\fill} \hspace{\fill}  \textbf{} Discussion Notes\  \\
-\textbf{Date:}\  Oct 12, 2022   \hspace{\fill} \textbf{Email:}\ emmyb320@bu.edu  
+\textbf{Date:}\  October 12, 2022   \hspace{\fill} \textbf{Email:}\ emmyb320@bu.edu
+
 \vspace{.4cm}
 \hrule
 
@@ -425,7 +426,7 @@ Now perturb the Hamiltonian $\hat H = \hat H_0 + \hat H'$ with,
 \begin{align}
 	\hat H' = \lambda \hat x \hat y
 \end{align}
-where $\lambda \ll m \omega^2/2$.
+where $\lambda \ll m \omega^2$.
 Find the first and second-order corrections to the energy of the first excited state (which is doubly-degenerate), and find the first-order corrections to the first excited state.
 
 
@@ -780,6 +781,84 @@ We have discovered that when we perturb the Hamiltonian, the first excited state
 \label{visualizingGoodStates}
 }
 \end{figure}
+From these results, the second-order corrections energies are,
+\begin{align}
+	E_- 
+	&=
+	2 \hbar \omega
+	-
+	\frac{\hbar \lambda}{2 m \omega}
+	-
+	\frac{\hbar \lambda^2}{4 m^2 \omega^3}
+	+
+	O((\tfrac{\lambda}{m \omega^2})^3),
+	\\
+	E_+
+	&=
+	2 \hbar \omega
+	+
+	\frac{\hbar \lambda}{2 m \omega}
+	-
+	\frac{\hbar \lambda^2}{4 m^2 \omega^3}
+	+
+	O((\tfrac{\lambda}{m \omega^2})^3).
+\end{align}
+To find the first-order corrected states, we must normalize the states:
+\begin{align}
+	\ket{\psi_-'}
+	&=
+	\frac{1}{\sqrt{
+		1+
+		\frac{1}{2}
+		\left(
+			\frac{\lambda}{2m \omega^2}
+		\right)^2
+	}}
+	\left(
+	\frac{1}{\sqrt{2}}
+	(
+		\ket{\psi_{01}}
+		-
+		\ket{\psi_{10}}
+	)
+	+
+	\frac{\lambda}{4m \omega^2}
+	(
+		\ket{\psi_{21}}
+		-
+		\ket{\psi_{12}}
+	)
+	+
+	O((\tfrac{\lambda}{m \omega^2})^2)
+	\right),
+	\\
+	\ket{\psi_-'}
+	&=
+	\frac{1}{\sqrt{
+		1+
+		\frac{1}{2}
+		\left(
+			\frac{\lambda}{2m \omega^2}
+		\right)^2
+	}}
+	\left(
+	\frac{1}{\sqrt{2}}
+	(
+		\ket{\psi_{01}}
+		-
+		\ket{\psi_{10}}
+	)
+	-
+	\frac{\lambda}{4m \omega^2}
+	(
+		\ket{\psi_{21}}
+		+
+		\ket{\psi_{12}}
+	)
+	+
+	O((\tfrac{\lambda}{m \omega^2})^2)
+	\right)
+\end{align}
 
 
 \paragraph{Exact solution}

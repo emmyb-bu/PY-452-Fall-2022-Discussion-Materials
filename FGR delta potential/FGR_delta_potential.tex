@@ -100,8 +100,9 @@
 	\vspace{.4cm}
 	{\textbf { \large CAS PY 452 --- Quantum Physics II}}
 \end{center}
- Emmy Blumenthal \hspace{\fill} \hspace{\fill}  \textbf{} Discussion Notes\  \\
-\textbf{Date:}\  Dec 7, 2022   \hspace{\fill} \textbf{Email:}\ emmyb320@bu.edu 
+Emmy Blumenthal \hspace{\fill} \hspace{\fill}  \textbf{} Discussion Notes\  \\
+\textbf{Date:}\  December 7, 2022   \hspace{\fill} \textbf{Email:}\ emmyb320@bu.edu
+
 \vspace{.4cm}
 \hrule
 
@@ -118,8 +119,7 @@ Compute the energy absorption rate of the particle if it is then perturbed by a 
 \begin{align}
 	\hat H' = q \mathcal{E}(t) \sin(\xi \hat x )
 \end{align}
-Assume that $q \mathcal{E}(t) \ll m g^2/\hbar^2 $ so that we may apply perturbation theory.
-\footnote{Here, $g$ has units of [energy]$\times$[length], $\mathcal{E}(t)$ has units of [energy]$\times$/[charge], and $q$ has units of [charge].}
+Assume that $q \mathcal{E}(t) \ll m g^2/\hbar^2 $ so that we may apply perturbation theory.\footnote{Here, $g$ has units of [energy]$\times$[length], $\mathcal{E}(t)$ has units of [energy]$\times$/[charge], and $q$ has units of [charge].}
 
 \paragraph{Reminder:}
 
@@ -347,21 +347,38 @@ With all this in place, we can use the Fermi golden rule to evaluate transition 
 	q^2 \mathcal{E}(t)^2
 	\frac{2m}{\hbar^3 \kappa k }
 		\left(
-			\frac{\kappa^2}{(k - \xi)^2 + \kappa^2}
+			\frac{1}{\left(\frac{k - \xi}{\kappa}\right)^2 + 1}
 			-
-			\frac{\kappa^2}{(k + \xi)^2 + \kappa^2}
+			% \frac{\kappa^2}{(k + \xi)^2 + \kappa^2}
+			\frac{1}{\left(\frac{k + \xi}{\kappa}\right)^2 + 1}
 		\right)^2
 		\\
 	&=
 	\frac{q^2 \mathcal{E}(t)^2}{\hbar^2 \kappa }
 	\sqrt{\frac{2m}{E}}
 		\left(
-			\frac{\kappa^2}{(\sqrt{2m E/\hbar^2} - \xi)^2 + \kappa^2}
+			\frac{1}{\left(\frac{\sqrt{2m E/\hbar^2} - \xi}{\kappa}\right)^2 + 1}
 			-
-			\frac{\kappa^2}{(\sqrt{2m E/\hbar^2} + \xi)^2 + \kappa^2}
+			% \frac{\kappa^2}{\left(\sqrt{2m E/\hbar^2} + \xi\right)^2 + \kappa^2}
+			\frac{1}{\left(\frac{\sqrt{2m E/\hbar^2} + \xi}{\kappa}\right)^2 + 1}
 		\right)^2.
 \end{align}
-Note that transitions to only certain energies will be allowed, consistent with how energy enters and leaves the system due to the time-dependent variation of the strength of the perturbation which is controlled by $\mathcal{E}(t)$.
+It is important to note that transitions to only certain energies will be allowed, consistent with how energy enters and leaves the system due to the time-dependent variation of the strength of the perturbation which is controlled by $\mathcal{E}(t)$.
+In particular, the energy of the system can only change by $\pm \hbar \omega$ where $\omega$ is the frequency of the perturbation $\mathcal{E}(t)$.
+For example if $\mathcal{E}(t) = \mathcal{E}_0 \cos(\omega t)$, then the energy of the system can only change by $\pm\hbar \omega$, so the transition rates will be:
+\begin{align}
+	\Gamma_{\delta \to E}
+	=
+	\frac{q^2 \mathcal{E}(t)^2}{\hbar^2 \kappa }
+	\sqrt{\frac{2m}{E}}
+		\left(
+			\frac{1}{\left(\frac{\sqrt{2m E/\hbar^2} - \xi}{\kappa}\right)^2 + 1}
+			-
+			% \frac{\kappa^2}{\left(\sqrt{2m E/\hbar^2} + \xi\right)^2 + \kappa^2}
+			\frac{1}{\left(\frac{\sqrt{2m E/\hbar^2} + \xi}{\kappa}\right)^2 + 1}
+		\right)^2
+		\delta(E - E^\delta \pm \hbar \omega).
+\end{align}
 
 
 

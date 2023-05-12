@@ -45,7 +45,7 @@
 \newcommand{\A}{\mathbb A}
 \newcommand{\F}{\mathbb F}
 \newcommand{\1}{\mathbf 1}
-\newcommand{\ip}[1]{\left< #1 \right>}
+\newcommand{\ip}[1]{\left\langle #1 \right\rangle}
 \newcommand{\abs}[1]{\left| #1 \right|}
 \newcommand{\norm}[1]{\left\| #1 \right\|}
 
@@ -101,7 +101,8 @@
 	{\textbf { \large CAS PY 452 --- Quantum Physics II}}
 \end{center}
 Emmy Blumenthal \hspace{\fill} \hspace{\fill}  \textbf{} Discussion Notes\  \\
-\textbf{Date:}\  Nov 9, 2022   \hspace{\fill} \textbf{Email:}\ emmyb320@bu.edu 
+\textbf{Date:}\  Nov 9, 2022   \hspace{\fill} \textbf{Email:}\ emmyb320@bu.edu
+ 
 \vspace{.4cm}
 \hrule
 
@@ -133,7 +134,7 @@ The other turning points occurs when,
 \end{align}
 The Bohr-Sommerfeld quantization condition is,
 \begin{gather}
-	\int_0^{x_2} p(x) dx
+	\int_0^{x_2} p(x) \,\mathrm{d} x
 	=
 	\left(
 		n - \frac{1}{4}
@@ -142,14 +143,14 @@ The Bohr-Sommerfeld quantization condition is,
 	\sqrt{2m}
 	\int_0^{E/mg}
 	\sqrt{E - m g x}
-	dx
+	\,\mathrm{d} x
 	=
 	-
 	\frac{1}{gm}
 	\sqrt{2m}
 	\int_{E}^{0}
 	\sqrt{u}
-	du
+	\,\mathrm{d} u
 	=
 	\frac{2\sqrt{2}}{3g\sqrt{m}} E^{3/2}
 	=
@@ -173,7 +174,7 @@ In the classically-allowed region (region I) ($E_n > V(x)$), the wave-function i
 \begin{align}
 	\psi_\mathrm{I}(x) =
 	\frac{A}{[2m(E_n - V(x))]^{1/4}}
-	\sin(\int_x^{x_2} \sqrt{2m (E_n - V(x'))} dx' + \pi/4).
+	\sin(\int_x^{x_2} \sqrt{2m (E_n - V(x'))} \,\mathrm{d} x' + \pi/4).
 \end{align}
 We are free to add the factor of $\pi/4$ as a constant of integration; similarly, we chose the limit of integration $x_2$ arbitrarily.
 We choose a sine function with this phase-factor here because it will match the asymptotic expansions of the Airy functions.
@@ -183,7 +184,7 @@ In the classically-disallowed region (region III) ($V(x) > E_n$),
 	\psi_\mathrm{III}(x)
 	=
 	\frac{B}{[2m(V(x) - E_n)]^{1/4}}
-	\exp(-\int_{x_2}^x \sqrt{2m(V(x') - E_n)} dx').
+	\exp(-\int_{x_2}^x \sqrt{2m(V(x') - E_n)} \,\mathrm{d} x').
 \end{align}
 We need to deal with the `patching' region (region II) next.
 We linearize the potential near the turning point: $V(x) \approx V(x_2) + (x-x_2) V'(x_2)
@@ -194,7 +195,7 @@ In this particular case, the approximation is exact because the potential is lin
 Near the turning point, we want to solve the TISE:
 \begin{align}
 	-\frac{\hbar^2}{2m}
-	\frac{d^2\psi}{dx^2}
+	\frac{d^2\psi}{\,\mathrm{d} x^2}
 	+
 	(E_n + (x-x_2)V'(x_2))
 	\psi
@@ -202,7 +203,7 @@ Near the turning point, we want to solve the TISE:
 	E_n \psi
 	\implies 
 	\frac{\hbar^2}{2m V'(x_2)}
-	\frac{d^2\psi}{dx^2}
+	\frac{d^2\psi}{\,\mathrm{d} x^2}
 	=
 	% V'(x_2)
 	(x-x_2)
@@ -261,7 +262,7 @@ The rest of the plotting and computation is continued in the attached {\em Mathe
 See figure 1 for the results.
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=0.8\linewidth]{plot.pdf}
+	\includegraphics[width=0.8\linewidth]{fig/plot.pdf}
 	\caption{
 		WKB compared to exact solution.
 		Here, we show the exact solution using the gray-dotted line.
@@ -278,7 +279,7 @@ If we want to find WKB estimations for the energies, we need to solve the Bohr-S
 The process goes like this:
 
 \paragraph{Write the semi-classical momentum $p(x,E) = \sqrt{2m[E - V(x)]}$.}
-Here, we explicitly include write the energy $E$ as part of the momentum to remind us that we do not yet know the energy.
+Here, we explicitly write the energy $E$ as part of the momentum to remind us that we do not yet know the energy.
 
 \paragraph{Find the turning points.}
 The turning points occur when $E = V(x)$ or equivalently $p(x,E) = 0$.
@@ -290,256 +291,156 @@ If there are vertical walls within the range of the relevant $E$, one or both of
 To obtain the $n$th energy (starting at $n=1$), we solve the equation:
 \begin{align}
 	\int_{x_1(E_n)}^{x_2(E_n)}
-	p(x',E_n) dx'
+	p(x',E_n) \,\mathrm{d} x'
 	=
 	\pi \hbar (n - \phi),
 \end{align}
 where $\phi = 0$ for two vertical walls at energy $E$, $\phi = \frac{1}{4}$ for one vertical wall at energy $E$, and $\phi = \frac{1}{2}$ for no vertical walls.
-% I recommend trying to avoid using multiple quantization conditions in one problem; this might be accomplished by choosing your potential to be sufficiently `deep.'
-
-% This equation can be solved numerically for $E$ if the integral and turning points are computed numerically.
-% In {\em Mathematica}, you might do this with the functions `Range' to generate a list of energies, `NSolve' to find the turning points for each energy, `Interpolate' to turn the turning points vs. energies into a continuous function, `NIntegrate' to perform the integral on the LHS, and `FindRoot' to solve for the quantization condition; look at their documentations for more.
+This equation implicitly defines $E_n$.
 
 
-% This whole `vertical walls at energy $E$' can be summarized with this picture:
+\section*{A reminder on exact diagonalization}
 
-% \begin{center}
-% 	\includegraphics[width=0.45\linewidth]{different_BS_conds.pdf}
-% \end{center}
+Solving the dynamics and behavior of a quantum mechanical system in many cases reduces to solving the time-independent Schrodinger equation,
 
-
-
-\section*{Numerically finding energies of the TISE}
-
-To find the exact eigenvalues for a quantum system that is discretized as $x_1,\dots,x_n$ with spacing $dx$, we first define the `discrete Laplacian:'
 \begin{align}
-	\Delta = 
-	\frac{1}{dx^2}
-	\left(
-		\begin{array}[]{cccccccccc}
-			-2 & 1 & 0 & 0 &\cdots & 0 & 0 & 0 & 0\\
-			1 & -2 & 1 & 0&\cdots & 0 & 0 & 0 & 0\\
-			0 & 1 & -2 & 1 &\cdots & 0 & 0 & 0 & 0\\
-			0 & 0 & 1 & -2 & \cdots & 0 & 0 & 0 & 0 \\
-			\vdots & \vdots & \vdots & \vdots & \ddots & \vdots & \vdots & \vdots & \vdots \\
-			0 & 0 & 0 & 0 & \cdots & -2 & 1 & 0 & 0 \\
-			0 & 0 & 0 & 0 & \cdots & 1 & -2 & 1 & 0 \\
-			0 & 0 & 0 & 0 & \cdots & 0 & 1 & -2 & 1 \\
-			0 & 0 & 0 & 0 & \cdots & 0 & 0 & 1 & -2 \\
-		\end{array}
-	\right).
+E \psi(x) = - \frac{\hbar^2}{2m} \frac{d^2\psi}{\,\mathrm{d} x^2} + V(x) \psi(x).
 \end{align}
-Note: the use of this form of the discrete Laplacian enforce `Dirichlet boundary conditions,' meaning that it pins the numerically-found eigenstates to zero at $x_1$ and $x_n$; this could also be interpreted as inserting an infinite potential barrier at the points.
-The potential operator is,
+At heart, this is solving the eigenvalue/eigenvector problem $E\psi(x) = \hat H \psi(x)$.
+In general, this problem is very tricky because we are trying to find closed-form expressions for eigenfunctions.
+However, if $\hat H$ can be represented as a matrix, this problem is less tricky and more systematic as there are algorithms that efficiently and accuractely diagonalize any matrix over the complex numbers.
+
+Our strategy to turn the continuum problem into a matrix eigenvalue/eigenvector problem is to discretize space with some points $x_1,x_2,\dots,x_n,\dots,x_N$ and find stationary states at these points.
+In the world of scientific computing, these points are sometimes called a 'stencil'.
+We take these points to be seperated by some uniform spacing $\Delta x$; we are discovering an interval of total length $L = N\Delta x$.
+For now, we assume that there are fixed boundary conditions, meaning that all values beyond $x_N$ or before $x_1$ are all zero.
+We denote a state entirely located at a point $x_i$ with $\ket{x_i}$. 
+In the basis $\beta = \{\ket{x_1},\ket{x_2},\dots,\ket{x_N}\}$,
 \begin{align}
-	\hat V
+\ket{\psi_n}_\beta
+=
+\begin{bmatrix}
+\psi_n(x_1)\\
+\psi_n(x_2)\\
+\vdots\\
+\psi_n(x_i)\\
+\vdots\\
+\psi_n(x_N)\\
+\end{bmatrix}.
+\end{align}
+When we discretize like this, operators are now  matrices!
+For example, in the position basis, the position operator is:
+\begin{align}
+\hat x_\beta
+=
+\begin{bmatrix}
+x_1 & 0 & 0  & \cdots &0 & 0 & 0 \\
+0 & x_2 & 0 & \cdots &0 & 0 & 0\\
+0 & 0 & x_3 & \cdots & 0 & 0 & 0\\
+\vdots & \vdots & \vdots & \ddots & \vdots & \vdots & \vdots\\
+0 & 0 & 0 & \cdots & x_{N-2} & 0&0\\
+0 & 0 & 0 & \cdots & 0 & x_{N-2} & 0\\
+0 & 0 & 0 & \cdots & 0 & 0& x_{N}\\
+\end{bmatrix}
+\end{align}
+This makes the potential operator,
+\begin{align}
+V(\hat x)_\beta
+=
+\begin{bmatrix}
+V(x_1) & 0 & 0  & \cdots &0 & 0 & 0 \\
+0 & V(x_2) & 0 & \cdots &0 & 0 & 0\\
+0 & 0 & V(x_3) & \cdots & 0 & 0 & 0\\
+\vdots & \vdots & \vdots & \ddots & \vdots & \vdots & \vdots\\
+0 & 0 & 0 & \cdots & V(x_{N-2}) & 0&0\\
+0 & 0 & 0 & \cdots & 0 & V(x_{N-2}) & 0\\
+0 & 0 & 0 & \cdots & 0 & 0& V(x_{N})\\
+\end{bmatrix}
+\end{align}
+Using the central difference formula for the first derivative,
+\begin{align}
+\frac{df}{\,\mathrm{d} x}
+=
+\lim_{h\to 0}
+\frac{f(x+h) -f(x-h)}{2h},
+\end{align}
+we can write the dertivative operator as,
+\begin{align}
+\frac{d}{\,\mathrm{d} x}
+=
+\frac{1}{2\Delta x}
+\begin{bmatrix}
+0 & 1 & 0  & \cdots &0 & 0 & 0 \\
+-1 & 0 & 1 & \cdots &0 & 0 & 0\\
+0 & -1 & 0 & \cdots & 0 & 0 & 0\\
+\vdots & \vdots & \vdots & \ddots & \vdots & \vdots & \vdots\\
+0 & 0 & 0 & \cdots & 0 & 1 & 0\\
+0 & 0 & 0 & \cdots & -1 & 0 & 1\\
+0 & 0 & 0 & \cdots & 0 & -1 & 0\\
+\end{bmatrix}.
+\end{align}
+This makes the momentum operator:
+\begin{align}
+\hat p_\beta
+=
+- i \hbar \frac{d}{\,\mathrm{d} x}
+=
+\frac{-i\hbar}{2\Delta x}
+\begin{bmatrix}
+0 & 1 & 0  & \cdots &0 & 0 & 0 \\
+-1 & 0 & 1 & \cdots &0 & 0 & 0\\
+0 & -1 & 0 & \cdots & 0 & 0 & 0\\
+\vdots & \vdots & \vdots & \ddots & \vdots & \vdots & \vdots\\
+0 & 0 & 0 & \cdots & 0 & 1 & 0\\
+0 & 0 & 0 & \cdots & -1 & 0 & 1\\
+0 & 0 & 0 & \cdots & 0 & -1 & 0\\
+\end{bmatrix}.
+\end{align}
+The second derivative of a one-dimensional function can be written as,
+\begin{align}
+\frac{d^2f}{\,\mathrm{d} x^2}
+=
+\lim_{h\to 0}
+\frac{f(x+h) - 2f(x)+f(x-h)}{h^2},
+\end{align}
+so we can form a second derivative operator, sometimes called the discete Laplacian, $\Delta$:
+\begin{align}
+\frac{d^2}{\,\mathrm{d} x^2} 
+= \Delta
+=
+\frac{1}{\Delta x^2}
+\begin{bmatrix}
+-2 & 1 & 0  & \cdots &0 & 0 & 0 \\
+1 & -2 & 1 & \cdots &0 & 0 & 0\\
+0 & 1 & -2 & \cdots & 0 & 0 & 0\\
+\vdots & \vdots & \vdots & \ddots & \vdots & \vdots & \vdots\\
+0 & 0 & 0 & \cdots & -2 & 1 & 0\\
+0 & 0 & 0 & \cdots & 1 & -2 & 1\\
+0 & 0 & 0 & \cdots & 0 & 1 & -2\\
+\end{bmatrix}.
+\end{align}
+With all this, we can write the Hamiltonian operator as a sum of matrices!
+
+It is also important to touch on normalization.
+In order to be consistent with the continuous case, we want to normalize our states such that,
+\begin{align}
+	\int \mathrm{d} x\, \psi_n^\ast(x)\psi_n(x)
+	= 1
+	\implies
+	\sum_{i=1}^N
+	\psi_n^\ast(x_i)\psi_n(x_i) \Delta x = 1,
+\end{align}
+which is consistent with the definition of the Riemann integral.
+This could be equivalently stated as,
+\begin{align}
+	\ket{\psi_n}_\beta^\dagger
+	\ket{\psi_n}_\beta
 	=
-	\left(
-		\begin{array}{ccccc}
-			V(x_1) & 0 & \cdots & 0 & 0\\
-			0 & V(x_2)  & \cdots & 0 & 0\\
-			\vdots & \vdots  & \ddots & \vdots & \vdots\\
-			0 & 0  & \cdots & V(x_{n-1}) & 0\\
-			0 & 0  & \cdots & 0 & V(x_n)\\
-		\end{array}
-	\right).
+	\frac{1}{\Delta x},
 \end{align}
-The total Hamiltonian is then a $n \times n$ matrix:
-\begin{align}
-	\hat H = -\frac{\hbar^2}{2m} \Delta + \hat V.
-\end{align}
-The eigenvalues of this operator are the energy eigenvalues and the eigenvectors are the stationary states.
+where considering $\ket{\psi_n}_\beta$ as a column vector.
 
 
-% This equation gives the relationship between $C$ and $B$.
-% Similarly, the large negative expansion of $\mathrm{Ai}(\xi)$ (i.e., $x \ll x_2$) is,
-% \begin{align}
-% 	\mathrm{Ai}(\xi)
-% 	\sim
-% 	\frac{1}{\sqrt{\pi}(-\xi)^{1/4}}
-% 	\sin(\frac{2}{3}(-\xi)^{3/2} + \frac{\pi}{4}).
-% \end{align}
-% Matching with $\psi_\mathrm{I}(x)$ gives,
-% \begin{align}
-% 	\frac{C}{\sqrt{\pi}(-\xi)^{1/4}}
-% 	=
-% 	\frac{A}{[2m(E_n - V(x))]^{1/4}},
-% \end{align}
-% which tells us the relationship between $A$ and $C$.
-% To get forms for these expressions and make plots, we use the attached {\em Mathematica} notebook; a key issue here is finding the appropriate width of the `patching' region.
-
-% Generally,
-% $ \int p(x) dx = - \frac{2\sqrt{2}}{3 g \sqrt{m}} (E - m g x)^{3/2} + C$, where $C$ is a constant of integration.
-% This means that the WKB wave-function in the classical region (region I), is,
-% \begin{align}
-% 	\psi_\mathrm{I}(x)
-% 	=
-% 	\frac{A}{(2m(E_4 - m g x))^{1/4}} 
-% 	\sin(\frac{2\sqrt{2}}{3g \sqrt{m}\hbar} (E_4 - m g x)^{3/2}
-% 	+
-% 	\frac{\pi}{4}),
-% \end{align}
-% where we are allowed to add the phase factor $\pi/4$ as the constant of integration.
-% and the wave-function in the classically-disallowed region (region III) is,
-% \begin{align}
-% 	\psi_{\mathrm{III}}(x)
-% 	=
-% 	\frac{B}{(2m(m g x-E_4 ))^{1/4}} 
-% 	\exp(-\frac{2\sqrt{2}}{3g \sqrt{m}\hbar} (m g x-E_4 )^{3/2}).
-% \end{align}
-% However, we have to `patch' the region (II) around the turning point by linearizing the potential: $V(x) \approx V(x_2) + V'(x_2) (x-x_2) = E_4 + m g (x - E_4/mg)$.
-% Therefore, in the patching region, we need to solve the TISE:
-% \begin{gather}
-% 	-\frac{\hbar^2}{2m}\frac{d^2 \psi_\mathrm{II}}{dx^2}
-% 	+ \left[
-% 		E_4
-% 		 +V'(x_2)(x-x_2)\right]\psi_\mathrm{II}(x) = E_4 \psi_\mathrm{II}(x)
-% 	\\
-% 	\implies
-% 	\frac{\hbar^2}{2mV'(x_2)}
-% 	\frac{d^2\psi_\mathrm{II}}{dx^2}
-% 	=
-% 	(x-x_2)
-% 	\psi_\mathrm{II}(x)
-% \end{gather}
-% By changing variables $\xi = (x-x_2)/\sqrt{\hbar^2/(2m V'(x_2))} = (x-x_2)/\alpha$, this becomes $\frac{d^2\psi_\mathrm{II}}{d\xi^2} = \xi \psi_\mathrm{II}(\xi)$, which is `Airy's equation' and has solutions $\psi_\mathrm{II} (\xi) = D \mathrm{Ai}(\xi) + E\mathrm{Bi}(\xi)$.
-% In the classical region, we use the large positive $\xi$ approximations:
-% \begin{align}
-% 	\mathrm{Ai}(\xi) \sim
-% 	\frac{e^{-{2 \xi ^{3/2}}/{3}}}{2 (\pi^2 \xi)^{1/4}}
-% 	,
-% 	\qquad
-% 	\mathrm{Bi}(\xi)
-% 	\sim
-% 	\frac{e^{{2 \xi ^{3/2}}/{3}}}{(\pi^2 \xi)^{1/4}}.
-% \end{align}
-% We must have $\psi_{\mathrm{II}} = D \mathrm{Ai}(\xi)$ for normalization.
-% Additionally,
-% \begin{align}
-% 	\frac{B}{(2m(m g x-E_4 ))^{1/4}} 
-% 	=
-% 	\frac{D}{2(\pi^2 (x-E_4/mg)/\alpha)^{1/4 }}
-% 	\implies
-% 	\frac{B}{D}
-% 	=
-% 	\left(
-% 		\frac{m^2 g \alpha}{8 \pi^2}
-% 	\right)^{1/4}.
-% \end{align}
-% Similarly,
-% the large negative $\xi$ asymptotic behavior of the Airy function is,
-% \begin{align}
-% 	\mathrm{Ai}(\xi)
-% 	\sim
-% 	\frac{1}{\sqrt{\pi}(-\xi)^{1/4}}
-% 	\sin\left(
-% 		\frac{2}{3}(-\xi)^{3/2} + \frac{\pi}{4}
-% 	\right),
-% \end{align}
-% so we must have,
-% \begin{align}
-% 	\frac{A}{(2m(E_4-m g x ))^{1/4}}
-% 	=
-% 	\frac{D}{\sqrt{\pi}(E_4/mg - x)^{1/4}/\alpha^{1/4}}
-% 	\implies
-% 	\frac{A}{D}
-% 	=
-% 	\left(
-% 		\frac{2gm^2\alpha}{\pi^2}
-% 	\right)^{1/4}.
-% \end{align}
-% Additionally,
-% \begin{align}
-% 	\frac{\sqrt{2}}{g\sqrt{m}\hbar}(m g x - E_4)^{3/2}
-% 	=
-% 	2\xi^{3/2}/3
-% 	=
-% \end{align}
-% Substituting $x = \xi \sqrt{\hbar^2/(2m V'(x_2))} + E/mg$ into our form for $\psi_\mathrm{I}$:
-% \begin{align}
-% 	\psi_\mathrm{I}(x)
-% 	=
-% \end{align}
-
-% \begin{align}
-% 	\int p(x) dx
-% 	=
-% 	\frac{}{}
-% % \end{align}
-% $\int p(x) dx =\sqrt{2m} \int \sqrt{E - m g x} dx = 
-% \frac{2\sqrt{2}}{3g m } E^{3/2}$.
-% In the case of $n =4$, $\int p(x) dx = \frac{2\sqrt{2}}{3g m } E_4^{3/2} = \frac{15}{4} \pi \hbar$
-
-
-% \paragraph{Solution v2:}
-
-% In the classically-allowed region (region I) ($E_n > V(x)$), the wave-function is,
-% \begin{align}
-% 	\psi_\mathrm{I}(x)
-% 	=
-% 	\frac{1}{[2m(E_n - V(x))]^{1/4}}
-% 	\left[
-% 	A_s
-% 	\sin(\int^x \sqrt{2m(E_n - V(x'))}dx')
-% 	+
-% 	A_c
-% 	\cos(\int^x \sqrt{2m(E_n - V(x'))}dx')
-% 	\right].
-% \end{align}
-% Similarly, in the classically-disallowed region (region III) ($V(x) > E_n$),
-% \begin{align}
-% 	\psi_\mathrm{III}(x)
-% 	=
-% 	\frac{1}{[2m(V(x)-E_n )]^{1/4}}
-% 	\left[
-% 		B_-
-% 		\exp(-\int^x \sqrt{2m(E_n - V(x'))}dx')
-% 		+
-% 		B_+
-% 		\exp(+\int^x \sqrt{2m( V(x')-E_n)}dx')
-% 	\right].
-% \end{align}
-% In order for $\psi_\mathrm{III}(x) \to 0$ as $x \to \infty$, we must have $B_+ = 0$.
-% Next, we have to look at the `patching' region (region II).
-% Here, we approximate the potential by linearizing about the turning point: $V(x) \approx V(x_2) + (x-x_2) V'(x_2)$.
-% Near the turning point, we want to solve the TISE:
-% \begin{align}
-% 	-\frac{\hbar^2}{2m}
-% 	\frac{d^2\psi}{dx^2}
-% 	+
-% 	(E_n + (x-x_2)V'(x_2))
-% 	\psi
-% 	=
-% 	E_n \psi
-% 	\implies 
-% 	\frac{\hbar^2}{2m V'(x_2)}
-% 	\frac{d^2\psi}{dx^2}
-% 	=
-% 	% V'(x_2)
-% 	(x-x_2)
-% 	\psi.
-% \end{align}
-% By changing variables $\xi = (x-x_2)\alpha$, where $\alpha =[ 2mV'(x_2)/\hbar^2]^{1/3}$, this becomes,
-% \begin{align}
-% 	\frac{d^2 \psi}{d\xi^2} = \xi \psi(\xi),
-% \end{align}
-% which has solutions $\psi = C\mathrm{Ai}(\xi) + D \mathrm{Bi}(\xi)$.
-% The large positive $\xi$ (i.e., $x \gg x_2$) asymptotic expansion is,
-% \begin{align}
-% 	\mathrm{Ai}(\xi)
-% 	% =
-% 	\sim
-% 	\frac{e^{-\frac{2 \xi ^{3/2}}{3}}}{2 (\pi^2 \xi)^{1/4}},
-% 	\qquad
-% 	\mathrm{Bi}(\xi)
-% 	% =
-% 	\sim
-% 	\frac{e^{\frac{2 \xi ^{3/2}}{3}}}{(\pi^2\xi)^{1/4}}.
-% \end{align}
-% To match with $\psi_{\mathrm{III}}(x)$, we must have,
-% \begin{align}
-	
-% \end{align}
 
 
 \end{document}

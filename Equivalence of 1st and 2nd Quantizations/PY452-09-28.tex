@@ -102,7 +102,8 @@
 	{\textbf { \large CAS PY 452 --- Quantum Physics II}}
 \end{center}
 Emmy Blumenthal \hspace{\fill} \hspace{\fill}  \textbf{} Discussion Notes\  \\
-\textbf{Date:}\  Sep 28, 2022   \hspace{\fill} \textbf{Email:}\ emmyb320@bu.edu \ 
+\textbf{Date:}\  September 28, 2022   \hspace{\fill} \textbf{Email:}\ emmyb320@bu.edu
+
 \vspace{.4cm}
 \hrule
 
@@ -125,7 +126,7 @@ The single particle basis states are $\psi_a(x), \psi_b(x)$, and the single-part
 	+
 	o_{bb}\psi_b(x).
 \end{align}
-The values $o_{aa},o_{ba}, o_{ab},o_{bb}$ are the matrix elements of the {\em single-particle} operator $\hat o$, and we take them as a given.
+The values $o_{aa},o_{ba}, o_{ab},o_{bb}$ are the matrix elements of the {single-particle} operator $\hat o$.
 The multi-particle basis states are,
 \begin{align}
 	\psi_{\alpha}(x_1,x_2)
@@ -151,9 +152,9 @@ The multi-particle basis states are,
 	\psi_b(x_2).
 	\label{sqbasisstates}
 \end{align}
-In the first quantization, our goal is to calculate the matrix elements of the operator $\hat O = \hat o(x_1) + \hat o(x_2)$ in terms of the basis states $\psi_\alpha, \psi_\beta, \psi_\gamma$.
+In the first quantization, we can calculate the matrix elements of the operator $\hat O = \hat o(x_1) + \hat o(x_2)$ in terms of the basis states $\psi_\alpha, \psi_\beta, \psi_\gamma$.
 The notation $\hat o(x_1)$ means that this operator only acts on coordinate $x_1$ and leaves wave-functions in terms of $x_2$ alone.
-In the prompt for problem 1, we want to find the matrix elements only corresponding to one basis state, so that's what we'll do here with the basis state $\psi_\alpha(x_1,x_2)$.
+We want to find the matrix elements only corresponding to one basis state, so that's what we'll do here with the basis state $\psi_\alpha(x_1,x_2)$.
 To find the matrix elements, we act on $\psi_\alpha(x_1,x_2)$ with the operator $\hat O$ and then express the resulting wave-function in terms of the basis states $\psi_\alpha, \psi_\beta, \psi_\gamma$:
 \begin{align}
 	\hat O [\psi_\alpha(x_1,x_2)]
@@ -202,9 +203,9 @@ We could write this as a column in a matrix like so:
 	\right).
 \end{align}
 Here, the dots are the matrix elements that we do not know yet; we would find these matrix elements by computing $\hat O \psi_\beta$ and $\hat O \psi_\gamma$ and then factoring the results in terms of $\psi_\alpha, \psi_\beta, \psi_\gamma$.
-In the problem prompt, you are only asked to find one column of this matrix: the column corresponding to acting with $\hat O$ on the multi-particle basis state with two particles in orbital $a$, one particle in orbital $b$, and no particles in orbital $c$.
-One of the steps in this problem is finding expressions for the multi-particle basis states (similar to what happened in line \ref{sqbasisstates}).
-Note that we are working with bosons here and in problem 1 of the homework.
+% In the problem prompt, you are only asked to find one column of this matrix: the column corresponding to acting with $\hat O$ on the multi-particle basis state with two particles in orbital $a$, one particle in orbital $b$, and no particles in orbital $c$.
+% One of the steps in this problem is finding expressions for the multi-particle basis states (similar to what happened in line \ref{sqbasisstates}).
+Note that we are working with bosons here.
 
 \paragraph{Second quantization:}
 
@@ -278,7 +279,7 @@ Similarly to before, we act on $\ket{2,0}$ with $\hat O$ and then factor in term
 	0 \ket{0,2}.
 \end{align}
 Here we see that we are able to re-produce the same matrix elements from the first quantization where the basis states $\ket{2,0}, \ket{1,1},\ket{0,2}$ correspond to $\psi_\alpha,\psi_\beta,\psi_\gamma$.
-In problem 1 of the homework, you will follow this same procedure to show the equivalence of the first and second quantized methods but with three orbitals and three particles.
+% In problem 1 of the homework, you will follow this same procedure to show the equivalence of the first and second quantized methods but with three orbitals and three particles.
 
 
 

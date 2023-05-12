@@ -101,7 +101,8 @@
 	{\textbf { \large CAS PY 452 --- Quantum Physics II}}
 \end{center}
 Emmy Blumenthal \hspace{\fill} \hspace{\fill}  \textbf{} Discussion Notes\  \\
-\textbf{Date:}\  Nov 30, 2022   \hspace{\fill} \textbf{Email:}\ emmyb320@bu.edu 
+\textbf{Date:}\  November 30, 2022   \hspace{\fill} \textbf{Email:}\ emmyb320@bu.edu
+
 \vspace{.4cm}
 \hrule
 
@@ -109,8 +110,8 @@ Emmy Blumenthal \hspace{\fill} \hspace{\fill}  \textbf{} Discussion Notes\  \\
 
 \paragraph{Problem:}
 
-Consider a two-level system with energy eigenstates $\{\ket{0},\ket{1}\}$ and energy eigenvalues $\{E_0,E_1\}$.
-That is, it's Hamiltonian in the basis $\{\ket{0},\ket{1}\}$ is,
+Consider a two-level system with energy eigenstates $\ket{0},\ket{1}$ and energy eigenvalues $E_0,E_1$, respectively.
+That is, it's Hamiltonian in the basis $\ket{0},\ket{1}$ is,
 \begin{align}
 	\hat H
 	=
@@ -219,7 +220,7 @@ This is called the Dyson series.\footnote{
 
 \paragraph{Solution:}
 
-To compute the transition probability, we compute the integral:
+To find the transition probability, we compute the integral:
 \begin{align}
 	c_{1}^{(1)}(t \to \infty)
 	&=\nonumber
@@ -278,7 +279,7 @@ This means the probability of transition is,
 	=
 	\frac{\alpha^2}{\hbar^2}
 	\left(
-		\frac{\eta^2}{\eta^2 + \omega_{10}^2}
+		\frac{1}{1 + (\omega_{10}/\eta)^2}
 	\right)^2.
 \end{align}
 We can see that as $\eta \to 0$, the probability of transition goes to zero: $c_1^{(1)} (t \to \infty)\to 0$.
@@ -348,6 +349,8 @@ The integral $\alpha\int_{-\infty}^\infty \delta(t) e^{i \omega_{10}t} dt = \alp
 % 	-\frac{i\beta}{\eta\hbar} +
 % 	O(\eta^{-3})
 % \end{align}
+
+\newpage
 
 \section*{Time-dependent perturbation theory for the quantum harmonic oscillator}
 
@@ -550,9 +553,9 @@ so the perturbation is varied very slowly.
 In this case, $c_1^{(1)}(t \to \infty) = 0$, so there is no change made after a long time.
 This can be seen as a case of the adiabatic theorem.
 
-\section*{Appendix: How do we know what functions have a $\delta$ distribution behavior as a limit?}
+\section*{Appendix: How do we know what functions have $\delta$-distribution behavior as a limit?}
 
-The $\delta$ distribution function is defined so that $\delta(x) = 0$ for all $x \ne 0$, and for all functions $g$,
+The $\delta$-distribution function is defined so that $\delta(x) = 0$ for all $x \ne 0$, and for all functions $g$,
 \begin{align}
 	\int_{-\infty}^\infty \delta(x) g(x) dx = g(0).
 \end{align}
